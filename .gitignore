@@ -1,4 +1,5 @@
 .DS_Store
 public/build/main.js
+public/textures/
 node_modules
 *.log

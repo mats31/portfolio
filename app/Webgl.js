@@ -1,6 +1,6 @@
 import THREE from 'three';
 window.THREE = THREE;
-import Cube from './objects/Cube';
+import Project from './objects/Project';
 
 export default class Webgl {
   constructor(width, height) {
@@ -10,19 +10,22 @@ export default class Webgl {
 
     this.scene = new THREE.Scene();
 
-    this.camera = new THREE.PerspectiveCamera(50, width / height, 1, 1000);
-    this.camera.position.z = 100;
+    this.camera = new THREE.PerspectiveCamera(50, width / height, 1, 1000000);
+    this.camera.position.z = 1000;
 
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(width, height);
-    this.renderer.setClearColor(0x262626);
+    this.renderer.setClearColor(0x000000);
 
     this.composer = null;
     this.initPostprocessing();
 
-    this.cube = new Cube();
-    this.cube.position.set(0, 0, 0);
-    this.scene.add(this.cube);
+    this.project = new Project();
+    this.project.position.set(0, 0, 800);
+    this.scene.add(this.project);
+
+    var light = new THREE.AmbientLight( 0x404040 ); // soft white light
+    this.scene.add( light );
   }
 
   initPostprocessing() {
@@ -49,6 +52,6 @@ export default class Webgl {
       this.renderer.render(this.scene, this.camera);
     }
 
-    this.cube.update();
+    this.project.update();
   }
 }
