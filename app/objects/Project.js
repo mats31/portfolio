@@ -31,8 +31,8 @@ export default class Project extends THREE.Object3D {
     this.uniforms = {};
     this.mat = new THREE.ShaderMaterial({
       uniforms: this.uniforms,
-      vertexShader: glslify(path.join(__dirname, '../', 'projectVertext.glsl')),
-      fragmentShader: glslify(path.join(__dirname, '../', 'projectFragment.glsl')),
+      vertexShader: glslify('../shaders/projectVertex.glsl'),
+      fragmentShader: glslify('../shaders/projectFragment.glsl'),
       blending: THREE.AdditiveBlending,
       depthTest: true,
       transparent: false,
