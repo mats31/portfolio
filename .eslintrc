@@ -28,6 +28,8 @@
     "no-new-func": 0,
     "no-console": 0,
     "padded-blocks": 0,
-    "id-length": 0
+    "id-length": 0,
+    space-in-parens: [2, "always", { "exceptions": ["{}", "[]"] }],
+    max-len: [1, 150, 4]
   }
 }
