@@ -1,0 +1,7 @@
+{
+	"projects": [{
+		"name": "Touaregs Agency Website",
+		"description": "The website of the digital agency Touaregs based in Paris.",
+    "images": ["touaregs-1.png"]
+	}]
+}
