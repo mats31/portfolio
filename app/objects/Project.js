@@ -10,7 +10,7 @@ export default class Project extends THREE.Object3D {
     this.context = this.canvas.getContext( '2d' );
     this.step = 0;
     this.particles = new THREE.BufferGeometry();
-    this.density = 4;
+    this.density = 2;
 
     this.loadJson().then( ( result ) => {
       this.datas = JSON.parse( result );
@@ -99,10 +99,11 @@ export default class Project extends THREE.Object3D {
 
   createPoints() {
     const pixels = this.context.getImageData( 0, 0, this.currentImg.width, this.currentImg.height );
+    console.log(pixels);
     const step = this.density * 4;
-    const positions = new Float32Array( 19677 );
-    const colors = new Float32Array( 19677 );
-    const sizes = new Float32Array( parseInt( 19677 / 3, 10 ) );
+    const positions = new Float32Array( 240600 );
+    const colors = new Float32Array( 240600 );
+    const sizes = new Float32Array( 240600 );
     let x = 0;
     let y = this.currentImg.height;
     let i3 = 0;
@@ -126,8 +127,7 @@ export default class Project extends THREE.Object3D {
           colors[i3 + 1] = color.g;
           colors[i3 + 2] = color.b;
 
-          sizes[i] = 10;
-
+          sizes[i] = 50;
           i3 += 3;
           i++;
         }
@@ -140,6 +140,7 @@ export default class Project extends THREE.Object3D {
     this.particles.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
 
     this.uniforms = {
+      time: { type: 'f', value: 0 },
       color: { type: 'c', value: new THREE.Color( 0xffffff ) },
       texture: { type: 't', value: THREE.ImageUtils.loadTexture( './textures/particle.png' ) },
     };
@@ -149,40 +150,51 @@ export default class Project extends THREE.Object3D {
       fragmentShader: glslify( '../shaders/projectFragment.glsl' ),
       blending: THREE.AdditiveBlending,
       depthTest: false,
-      transparent: true,
+      transparent: false,
       wireframe: true,
     });
 
     this.particleSystem = new THREE.Points( this.particles, this.pMaterial );
+    this.particleSystem.position.set( -230, 300, -1050 );
+    this.particleSystem.rotation.set( 0, 0.35, 0 );
     this.add( this.particleSystem );
 
-    this.params = {
-      projectPositionX: 300,
-      projectPositionY: 0,
-      projectPositionZ: -200,
-      projectRotationX: 0,
-      projectRotationY: 0,
-      projectRotationZ: 0,
-    };
-    window.gui.add( this.params, 'projectPositionX', -10000, 10000 );
-    window.gui.add( this.params, 'projectPositionY', -10000, 10000 );
-    window.gui.add( this.params, 'projectPositionZ', -10000, 10000 );
-    window.gui.add( this.params, 'projectRotationX', -10000, 10000 );
-    window.gui.add( this.params, 'projectRotationY', -10000, 10000 );
-    window.gui.add( this.params, 'projectRotationZ', -10000, 10000 );
+    // this.params = {
+    //   projectPositionX: -230,
+    //   projectPositionY: 300,
+    //   projectPositionZ: -1050,
+    //   projectRotationX: 0,
+    //   projectRotationY: 0.35,
+    //   projectRotationZ: 0,
+    // };
+    // window.gui.add( this.params, 'projectPositionX', -5000, 5000 );
+    // window.gui.add( this.params, 'projectPositionY', -5000, 5000 );
+    // window.gui.add( this.params, 'projectPositionZ', -5000, 5000 );
+    // window.gui.add( this.params, 'projectRotationX', -1, 1, 0.05 );
+    // window.gui.add( this.params, 'projectRotationY', -1, 1, 0.05 );
+    // window.gui.add( this.params, 'projectRotationZ', -1, 1, 0.05 );
   }
 
   update() {
-    this.particleSystem.position.set(
-      this.params.projectPositionX,
-      this.params.projectPositionY,
-      this.params.projectPositionZ );
+    if (typeof this.uniforms != 'undefined') {
+      this.uniforms.time.value += 0.05;
+    }
 
-    this.particleSystem.rotation.set(
-      this.params.projectRotationX,
-      this.params.projectRotationY,
-      this.params.projectRotationZ );
+    // if (typeof this.particleSystem != 'undefined') {
+    //   this.particleSystem.position.set(
+    //     this.params.projectPositionX,
+    //     this.params.projectPositionY,
+    //     this.params.projectPositionZ );
+    //
+    //   this.particleSystem.rotation.set(
+    //     this.params.projectRotationX,
+    //     this.params.projectRotationY,
+    //     this.params.projectRotationZ );
+    // }
 
+    if (typeof this.particles.attributes.position != 'undefined') {
+      this.particles.attributes.position.needsUpdate = true;
+    }
     // this.rotation.x += 0.01;
     // this.rotation.z += 0.01;
   }

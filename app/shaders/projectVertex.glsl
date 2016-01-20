@@ -1,5 +1,6 @@
 attribute float size;
 attribute vec3 customColor;
+uniform float time;
 
 varying vec3 vColor;
 
