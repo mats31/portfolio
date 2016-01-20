@@ -4,15 +4,20 @@ import dat from 'dat-gui';
 import 'gsap';
 
 let webgl;
-let gui;
 
 // webgl settings
 webgl = new Webgl(window.innerWidth, window.innerHeight);
 document.body.appendChild(webgl.renderer.domElement);
 
 // GUI settings
-gui = new dat.GUI();
-gui.add(webgl.params, 'usePostprocessing');
+window.gui = new dat.GUI();
+window.gui.add(webgl.params, 'usePostprocessing');
+// gui.add(webgl.params, 'projectPositionX');
+// gui.add(webgl.params, 'projectPositionY');
+// gui.add(webgl.params, 'projectPositionZ');
+// gui.add(webgl.params, 'projectRotationX');
+// gui.add(webgl.params, 'projectRotationY');
+// gui.add(webgl.params, 'projectRotationZ');
 
 // handle resize
 window.addEventListener('resize', resizeHandler);

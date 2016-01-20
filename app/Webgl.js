@@ -6,6 +6,12 @@ export default class Webgl {
   constructor(width, height) {
     this.params = {
       usePostprocessing: false,
+      // projectPositionX: this.project.position.x,
+      // projectPositionY: this.project.position.y,
+      // projectPositionZ: this.project.position.z,
+      // projectRotationX: this.project.position.x,
+      // projectRotationY: this.project.position.y,
+      // projectRotationZ: this.project.position.z,
     };
 
     this.scene = new THREE.Scene();

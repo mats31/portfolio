@@ -101,9 +101,9 @@ export default class Project extends THREE.Object3D {
   createPoints() {
     const pixels = this.context.getImageData(0, 0, this.currentImg.width, this.currentImg.height);
     const step = this.density * 4;
-    const positions = new Float32Array(19678);
-    const colors = new Float32Array(19678);
-    const sizes = new Float32Array(19678 / 3);
+    const positions = new Float32Array(19677);
+    const colors = new Float32Array(19677);
+    const sizes = new Float32Array(parseInt(19677 / 3, 10));
     let x = 0;
     let y = this.currentImg.height;
     let i3 = 0;
@@ -117,7 +117,7 @@ export default class Project extends THREE.Object3D {
         if (pixels.data[p + 3] > 0) {
           const pixelCol = (pixels.data[p] << 16) + (pixels.data[p + 1] << 8) + pixels.data[p + 2];
           const color = new THREE.Color(pixelCol);
-          const vector = new THREE.Vector3(-this.currentImg.width / 2 + x / 4, -y, 0);
+          const vector = new THREE.Vector3(-this.currentImg.width / 2 + x / 4, -y, 100);
 
           positions[i3 + 0] = vector.x;
           positions[i3 + 1] = vector.y;
@@ -143,7 +143,10 @@ export default class Project extends THREE.Object3D {
     this.particles.addAttribute('customColor', new THREE.BufferAttribute(colors, 3));
     this.particles.addAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
-    this.uniforms = {};
+    this.uniforms = {
+      color: { type: 'c', value: new THREE.Color(0xffffff) },
+      texture: { type: 't', value: THREE.ImageUtils.loadTexture('./textures/particle.png') },
+    };
     this.pMaterial = new THREE.ShaderMaterial({
       uniforms: this.uniforms,
       vertexShader: glslify('../shaders/projectVertex.glsl'),
@@ -151,14 +154,42 @@ export default class Project extends THREE.Object3D {
       blending: THREE.AdditiveBlending,
       depthTest: false,
       transparent: true,
+      wireframe: true,
     });
 
     this.particleSystem = new THREE.Points(this.particles, this.pMaterial);
+    // this.particleSystem.position.set(0, 0, 100);
+
     this.add(this.particleSystem);
+
+    this.params = {
+      projectPositionX: 300,
+      projectPositionY: 0,
+      projectPositionZ: -200,
+      projectRotationX: 0,
+      projectRotationY: 0,
+      projectRotationZ: 0,
+    };
+    window.gui.add(this.params, 'projectPositionX', -10000, 10000);
+    window.gui.add(this.params, 'projectPositionY', -10000, 10000);
+    window.gui.add(this.params, 'projectPositionZ', -10000, 10000);
+    window.gui.add(this.params, 'projectRotationX', -10000, 10000);
+    window.gui.add(this.params, 'projectRotationY', -10000, 10000);
+    window.gui.add(this.params, 'projectRotationZ', -10000, 10000);
   }
 
   update() {
-    this.rotation.x += 0.01;
-    this.rotation.z += 0.01;
+    this.particleSystem.position.set(
+      this.params.projectPositionX,
+      this.params.projectPositionY,
+      this.params.projectPositionZ);
+
+    this.particleSystem.rotation.set(
+      this.params.projectRotationX,
+      this.params.projectRotationY,
+      this.params.projectRotationZ);
+
+    // this.rotation.x += 0.01;
+    // this.rotation.z += 0.01;
   }
 }

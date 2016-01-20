@@ -1,7 +1,5 @@
 attribute float size;
 attribute vec3 customColor;
-attribute float startPosition;
-
 
 varying vec3 vColor;
 
