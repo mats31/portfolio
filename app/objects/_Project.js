@@ -109,50 +109,34 @@ export default class Project extends THREE.Object3D {
     let i3 = 0;
     let i = 0;
 
-    for ( let j = 0; i < 1000; i++ ) {
-      const color = new THREE.Color( 'red' );
+    for ( x = 0; x <= this.currentImg.width * 4; x += step ) {
 
-      positions[i3 + 0] = Math.floor( Math.random() * ( 400 - ( -400 ) + 1 ) ) + ( -400 );
-      positions[i3 + 1] = Math.floor( Math.random() * ( 0 - ( -400 ) + 1 ) ) + ( -400 );
-      positions[i3 + 2] = 0;
+      for ( y = this.currentImg.height; y >= 0; y -= this.density ) {
+        const p = ( y * this.currentImg.width * 4 ) + x;
 
-      colors[i3 + 0] = color.r;
-      colors[i3 + 1] = color.g;
-      colors[i3 + 2] = color.b;
+        if ( pixels.data[p + 3] > 0 ) {
+          const pixelCol = ( pixels.data[p] << 16 ) + ( pixels.data[p + 1] << 8 ) + pixels.data[p + 2];
+          const color = new THREE.Color( pixelCol );
+          const vector = new THREE.Vector3( -this.currentImg.width / 2 + x / 4, -y, 100 );
 
-      sizes[i] = 50;
+          positions[i3 + 0] = vector.x;
+          positions[i3 + 1] = vector.y;
+          positions[i3 + 2] = vector.z;
 
-      i3 += 3;
-      i++;
+          colors[i3 + 0] = color.r;
+          colors[i3 + 1] = color.g;
+          colors[i3 + 2] = color.b;
+
+          sizes[i] = 50;
+          i3 += 3;
+          i++;
+          if (y == 0 && x == this.currentImg.width * 4) {
+            console.log(i3);
+          }
+        }
+      }
+
     }
-
-    // for ( x = 0; x <= this.currentImg.width * 4; x += step ) {
-    //
-    //   for ( y = this.currentImg.height; y >= 0; y -= this.density ) {
-    //     const p = ( y * this.currentImg.width * 4 ) + x;
-    //
-    //     if ( pixels.data[p + 3] > 0 ) {
-    //       const pixelCol = ( pixels.data[p] << 16 ) + ( pixels.data[p + 1] << 8 ) + pixels.data[p + 2];
-    //       const color = new THREE.Color( pixelCol );
-    //       const vector = new THREE.Vector3( -this.currentImg.width / 2 + x / 4, -y, 100 );
-    //
-    //       positions[i3 + 0] = vector.x;
-    //       positions[i3 + 1] = vector.y;
-    //       positions[i3 + 2] = vector.z;
-    //
-    //       colors[i3 + 0] = color.r;
-    //       colors[i3 + 1] = color.g;
-    //       colors[i3 + 2] = color.b;
-    //
-    //       sizes[i] = 50;
-    //       i3 += 3;
-    //       i++;
-    //       if (y == 0 && x == this.currentImg.width * 4) {
-    //         // console.log(i3);
-    //       }
-    //     }
-    //   }
-    // }
 
     this.particles.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
     this.particles.addAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
