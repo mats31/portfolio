@@ -103,7 +103,7 @@ export default class Project extends THREE.Object3D {
     const step = this.density * 4;
     const positions = new Float32Array( 240600 );
     const colors = new Float32Array( 240600 );
-    const sizes = new Float32Array( 240600 );
+    const sizes = new Float32Array( parseInt( 240600 / 3, 10 ) );
     let x = 0;
     let y = this.currentImg.height;
     let i3 = 0;
@@ -130,6 +130,9 @@ export default class Project extends THREE.Object3D {
           sizes[i] = 50;
           i3 += 3;
           i++;
+          if (y == 0 && x == this.currentImg.width * 4) {
+            console.log(i3);
+          }
         }
       }
 
@@ -155,8 +158,8 @@ export default class Project extends THREE.Object3D {
     });
 
     this.particleSystem = new THREE.Points( this.particles, this.pMaterial );
-    this.particleSystem.position.set( -230, 300, -1050 );
-    this.particleSystem.rotation.set( 0, 0.35, 0 );
+    this.particleSystem.position.set( 0, 500, -1050 );
+    // this.particleSystem.rotation.set( 0, 0.35, 0 );
     this.add( this.particleSystem );
 
     // this.params = {
@@ -176,26 +179,15 @@ export default class Project extends THREE.Object3D {
   }
 
   update() {
-    if (typeof this.uniforms != 'undefined') {
-      this.uniforms.time.value += 0.05;
-    }
+    if ( typeof this.particles.attributes.size !== 'undefined' ) {
+      const time = Date.now() * 0.005;
+      const sizes = this.particles.attributes.size.array;
 
-    // if (typeof this.particleSystem != 'undefined') {
-    //   this.particleSystem.position.set(
-    //     this.params.projectPositionX,
-    //     this.params.projectPositionY,
-    //     this.params.projectPositionZ );
-    //
-    //   this.particleSystem.rotation.set(
-    //     this.params.projectRotationX,
-    //     this.params.projectRotationY,
-    //     this.params.projectRotationZ );
-    // }
+      for ( let i = 0; i < this.particles.attributes.size.array.length; i++ ) {
+        // sizes[i] = ( Math.random() * 50) * ( 1 + Math.sin( 0.1 * i + time ) );
+      }
 
-    if (typeof this.particles.attributes.position != 'undefined') {
-      this.particles.attributes.position.needsUpdate = true;
+      this.particles.attributes.size.needsUpdate = true;
     }
-    // this.rotation.x += 0.01;
-    // this.rotation.z += 0.01;
   }
 }

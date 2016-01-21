@@ -4,8 +4,12 @@ export default class Ground extends THREE.Object3D {
   constructor() {
     super();
 
-    this.geometry = new THREE.PlaneGeometry( 100, 100 );
-    this.material = new THREE.MeshLambertMaterial({ color: 0xffdd99 });
+    this.geometry = new THREE.PlaneGeometry( 100, 100, 10 );
+    this.material = new THREE.MeshPhongMaterial({
+      color: 0x555555,
+      transparent: true,
+      shininess: 5,
+    });
     this.material.color.offsetHSL( 0.45, 0.15, 0.9 );
 
     this.ground = new THREE.Mesh( this.geometry, this.material );
