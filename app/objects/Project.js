@@ -104,7 +104,7 @@ export default class Project extends THREE.Object3D {
 
     this.planeUniforms = {
       color: { type: 'c', value: new THREE.Color( 'white' ) },
-      map: { type: 't', value: THREE.ImageUtils.loadTexture( this.currentImg.src ) },
+      map: { type: 't', value: THREE.ImageUtils.loadTexture( 'textures/uv.jpg' ) },
     };
     this.planeMaterial = new THREE.ShaderMaterial({
       uniforms: this.planeUniforms,
@@ -113,7 +113,8 @@ export default class Project extends THREE.Object3D {
     });
 
     this.planeTexture = new THREE.Mesh( this.planeGeometry, this.planeMaterial );
-    this.planeTexture.position.set( 0, 300, 0 );
+    this.planeTexture.position.set( 0, 0, 0 );
+    this.planeTexture.visible = true;
     this.add( this.planeTexture );
   }
 
@@ -129,7 +130,7 @@ export default class Project extends THREE.Object3D {
     let i3 = 0;
     let i = 0;
 
-    for ( let j = 0; i < 10000; i++ ) {
+    for ( let j = 0; i < 100000; i++ ) {
       const color = new THREE.Color( 'red' );
 
       positions[i3 + 0] = Math.floor( Math.random() * ( 400 - ( -400 ) + 1 ) ) + ( -400 );
@@ -182,6 +183,7 @@ export default class Project extends THREE.Object3D {
       time: { type: 'f', value: 0 },
       color: { type: 'c', value: new THREE.Color( 0xffffff ) },
       texture: { type: 't', value: THREE.ImageUtils.loadTexture( './textures/particle.png' ) },
+      map: { type: 't', value: THREE.ImageUtils.loadTexture( this.currentImg.src ) },
     };
     this.pMaterial = new THREE.ShaderMaterial({
       uniforms: this.uniforms,
@@ -212,6 +214,9 @@ export default class Project extends THREE.Object3D {
     // window.gui.add( this.params, 'projectRotationX', -1, 1, 0.05 );
     // window.gui.add( this.params, 'projectRotationY', -1, 1, 0.05 );
     // window.gui.add( this.params, 'projectRotationZ', -1, 1, 0.05 );
+
+    const bbox = new THREE.Box3().setFromObject( this.particleSystem );
+    console.log( bbox );
   }
 
   update() {
@@ -224,6 +229,7 @@ export default class Project extends THREE.Object3D {
       }
 
       this.particles.attributes.size.needsUpdate = true;
+      this.particles.attributes.customColor.needsUpdate = true;
     }
   }
 }

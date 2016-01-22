@@ -67,6 +67,9 @@ export default class Webgl {
       this.renderer.render( this.scene, this.camera );
     }
 
+    //this.camera.rotation.y += 0.001;
+
     this.project.update();
+    this.ground.update();
   }
 }
