@@ -17,6 +17,7 @@ export default class Project extends THREE.Object3D {
 
       this.loadImage( this.datas.projects[this.step].images[0]).then( ( loadState ) => {
         console.log( loadState );
+        this.createTexture();
         this.createPoints();
       });
     });
@@ -97,6 +98,25 @@ export default class Project extends THREE.Object3D {
     });
   }
 
+  createTexture() {
+    this.planeModelGeometry = new THREE.PlaneGeometry( 800, 400, 1 );
+    this.planeGeometry = new THREE.BufferGeometry().fromGeometry( this.planeModelGeometry );
+
+    this.planeUniforms = {
+      color: { type: 'c', value: new THREE.Color( 'white' ) },
+      map: { type: 't', value: THREE.ImageUtils.loadTexture( this.currentImg.src ) },
+    };
+    this.planeMaterial = new THREE.ShaderMaterial({
+      uniforms: this.planeUniforms,
+      vertexShader: glslify( '../shaders/textureVertex.glsl' ),
+      fragmentShader: glslify( '../shaders/textureFragment.glsl' ),
+    });
+
+    this.planeTexture = new THREE.Mesh( this.planeGeometry, this.planeMaterial );
+    this.planeTexture.position.set( 0, 300, 0 );
+    this.add( this.planeTexture );
+  }
+
   createPoints() {
     const pixels = this.context.getImageData( 0, 0, this.currentImg.width, this.currentImg.height );
     console.log(pixels);
@@ -109,7 +129,7 @@ export default class Project extends THREE.Object3D {
     let i3 = 0;
     let i = 0;
 
-    for ( let j = 0; i < 1000; i++ ) {
+    for ( let j = 0; i < 10000; i++ ) {
       const color = new THREE.Color( 'red' );
 
       positions[i3 + 0] = Math.floor( Math.random() * ( 400 - ( -400 ) + 1 ) ) + ( -400 );
@@ -174,7 +194,7 @@ export default class Project extends THREE.Object3D {
     });
 
     this.particleSystem = new THREE.Points( this.particles, this.pMaterial );
-    this.particleSystem.position.set( 0, 500, -1050 );
+    this.particleSystem.position.set( 0, 500, 0 );
     // this.particleSystem.rotation.set( 0, 0.35, 0 );
     this.add( this.particleSystem );
 

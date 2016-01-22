@@ -35,11 +35,11 @@ export default class Webgl {
     this.scene.add( this.light );
 
     this.project = new Project();
-    this.project.position.set( 0, 0, 800 );
+    this.project.position.set( 0, 0, -250 );
     this.scene.add( this.project );
 
     this.ground = new Ground();
-    this.ground.position.set( 0, 0, 800 );
+    this.ground.position.set( 0, 0, -250 );
     this.scene.add( this.ground );
   }
 
