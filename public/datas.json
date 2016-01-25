@@ -1,9 +1,57 @@
 {
 	"projects": [
 		{
+			"name": "Nice To Meet You",
+			"description": "School project for the cosmetic brand Sisley",
+    	"images": ["project-ntmy.png"],
+			"type": "project"
+		},
+		{
+			"name": "Star Christmas",
+			"description": "A little game based on the Star Wars Universe",
+    	"images": ["experiment-star-christmas.png"],
+			"type": "experiment"
+		},
+		{
+			"name": "Bienvenue Dans Mon Hybride",
+			"description": "Project for Toyota",
+			"images": ["project-bienvenue-dans-mon-hybride.png"],
+			"type": "project"
+		},
+		{
+			"name": "Equalizer Galaxy",
+			"description": "The render of a webgl workshop at Gobelins school.",
+    	"images": ["experiment-equalizer-galaxy.png"],
+			"type": "experiment"
+		},
+		{
+			"name": "Equalizer",
+			"description": "First test with Web Audio API.",
+    	"images": ["experiment-equalizer.png"],
+			"type": "experiment"
+		},
+		{
+			"name": "Math&Malice",
+			"description": "The website of the digital agency Touaregs based in Paris.",
+			"images": ["project-mathetmalice.png"],
+			"type": "project"
+		},
+		{
 			"name": "Touaregs Agency Website",
 			"description": "The website of the digital agency Touaregs based in Paris.",
-    	"images": ["touaregs-2.png"],
+    	"images": ["project-touaregs.png"],
+			"type": "project"
+		},
+		{
+			"name": "SNCF",
+			"description": "School project created with the SNCF",
+			"images": ["project-sncf.png"],
+			"type": "project"
+		},
+		{
+			"name": "My Brand As A Service",
+			"description": "First project at Touaregs",
+			"images": ["project-my-brand-as-a-service.png"],
 			"type": "project"
 		}
 	]

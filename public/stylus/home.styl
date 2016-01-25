@@ -5,16 +5,34 @@ nav
   font-weight 700
   ul
     margin 0
+    padding 0
     li
+      cursor pointer
+      display initial
       list-style none
+      opacity 0
+      transition all 0.4s ease
+    li::after
+      background white
+      content ''
+      display block
+      height 2px
+      margin-top 3px
+      width 0%
+      transition all 0.2s ease
+    li:hover::after
+      width 100%
+  ul.active
+    li
+      opacity 1
+
 
 .project-list
-  cursor pointer
   height auto
   left 20px
   position absolute
   top 20px
-  transition all 0.5s ease
+  transition all 0.4s ease
   z-index 0
 
 .experiment-list

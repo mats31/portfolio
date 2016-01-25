@@ -240,6 +240,13 @@ export default class Project extends THREE.Object3D {
     console.log( bbox );
   }
 
+  changeProject( i ) {
+    const image = this.datas.projects[i].images[0];
+    this.loadImage( image ).then( ( loadState ) => {
+      this.uniforms.map.value = THREE.ImageUtils.loadTexture( this.pathImg + image );
+    });
+  }
+
   update() {
     if ( typeof this.particles.attributes.position !== 'undefined' ) {
       // this.particles.attributes.time.needsUpdate = true;
