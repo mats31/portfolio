@@ -8,7 +8,7 @@ export default class Light extends THREE.Object3D {
     this.add( this.ambient );
 
     this.spot = new THREE.SpotLight( 0xffffff, 1, 0, Math.PI / 2, 1 );
-    this.spot.position.set( 400, 700, 200 );
+    this.spot.position.set( 800, 1000, -500 );
     this.spot.target.position.set( 0, 0, 0 );
 
     this.spot.castShadow = true;

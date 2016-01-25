@@ -5,7 +5,7 @@ import Project from './objects/Project';
 import Ground from './objects/Ground';
 
 export default class Webgl {
-  constructor(width, height) {
+  constructor( width, height ) {
     this.params = {
       usePostprocessing: false,
       // projectPositionX: this.project.position.x,
@@ -31,16 +31,18 @@ export default class Webgl {
     this.composer = null;
     this.initPostprocessing();
 
-    this.light = new Light();
-    this.scene.add( this.light );
+    this.prepareRaycaster();
 
     this.project = new Project();
-    this.project.position.set( 0, 0, -250 );
+    this.project.position.set( -400, 0, 0 );
     this.scene.add( this.project );
 
-    this.ground = new Ground();
-    this.ground.position.set( 0, 0, -250 );
-    this.scene.add( this.ground );
+    // this.light = new Light();
+    // this.scene.add( this.light );
+    //
+    // this.ground = new Ground();
+    // this.ground.position.set( 0, 0, -250 );
+    // this.scene.add( this.ground );
   }
 
   initPostprocessing() {
@@ -60,6 +62,33 @@ export default class Webgl {
     this.renderer.setSize( width, height );
   }
 
+  prepareRaycaster() {
+    this.raycaster = new THREE.Raycaster();
+    this.mouse = new THREE.Vector2();
+    this.offset = new THREE.Vector3();
+  }
+
+  clickOnScene( event ) {
+    event.preventDefault();
+
+    this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+    this.raycaster.setFromCamera( this.mouse, this.camera );
+
+    const intersect = this.raycaster.intersectObject( this.project.children[0]);
+    if ( intersect.length > 0 ) {
+      this.project.startAnim( intersect[0].index );
+      // const point = intersect[0].point;
+      // console.log( point );
+      // for (var i = 0; i < this.project.children[0].geometry.attributes.position.array.length; i+=3) {
+      //   if (this.project.children[0].geometry.attributes.position.array[i] == point.x) {
+      //     console.log('ok');
+      //   }
+      // }
+    }
+  }
+
   render() {
     if ( this.params.usePostprocessing ) {
       console.warn( 'WebGL - No effect composer set.' );
@@ -67,9 +96,7 @@ export default class Webgl {
       this.renderer.render( this.scene, this.camera );
     }
 
-    //this.camera.rotation.y += 0.001;
-
     this.project.update();
-    this.ground.update();
+    // this.ground.update();
   }
 }

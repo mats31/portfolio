@@ -11,7 +11,6 @@ export default class Project extends THREE.Object3D {
     this.step = 0;
     this.particles = new THREE.BufferGeometry();
     this.density = 2;
-    this.clock = new THREE.Clock();
 
     this.loadJson().then( ( result ) => {
       this.datas = JSON.parse( result );
@@ -127,7 +126,6 @@ export default class Project extends THREE.Object3D {
     const noisePositions = new Float32Array( 599997 );
     const colors = new Float32Array( 599997 );
     const sizes = new Float32Array( parseInt( 599997 / 3, 10 ) );
-    const velocities = new Float32Array( parseInt( 599997 / 3, 10 ) );
     let x = 0;
     let y = this.currentImg.height;
     let i3 = 0;
@@ -150,8 +148,9 @@ export default class Project extends THREE.Object3D {
       colors[i3 + 1] = color.g;
       colors[i3 + 2] = color.b;
 
-      sizes[i] = 30;
-      velocities[i] = Math.random() * 11;
+
+
+      sizes[i] = 40;
 
       i3 += 3;
       i++;
@@ -193,8 +192,6 @@ export default class Project extends THREE.Object3D {
     this.particles.addAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
     this.particles.addAttribute( 'noisePosition', new THREE.BufferAttribute( noisePositions, 3 ) );
     this.particles.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
-    this.particles.addAttribute( 'velocity', new THREE.BufferAttribute( velocities, 1 ) );
-    // this.particles.center();
 
     this.uniforms = {
       time: { type: 'f', value: Date.now() * 0.005 },
@@ -217,7 +214,6 @@ export default class Project extends THREE.Object3D {
     this.particleSystem.castShadow = true;
     this.particleSystem.receiveShadow = true;
     this.initialPosition = positions.slice( 0 );
-    this.particleSystem.sortParticles = false;
     // this.particleSystem.rotation.set( 0, 0.35, 0 );
     this.add( this.particleSystem );
 
@@ -242,24 +238,22 @@ export default class Project extends THREE.Object3D {
 
   update() {
     if ( typeof this.particles.attributes.position !== 'undefined' ) {
-      this.uniforms.time.value = this.clock.getElapsedTime() * 0.9;
-      // this.particleSystem.rotation.z = 0.01 * this.uniforms.time.value;
-      // this.particles.attributes.noisePosition.needsUpdate = true;
-      // for ( let i3 = 0; i3 < this.particles.attributes.position.array.length; i3 += 3 ) {
-      //   // let xPos = this.initialPosition[i3 + 0] - ( Math.random() * 51 - 25 );
-      //   // let yPos = this.initialPosition[i3 + 1] - ( Math.random() * 51 - 25 );
-      //   //
-      //   // if ( xPos > 800 ) { xPos = 800; }
-      //   // if ( xPos < 0 ) { xPos = 0; }
-      //   // if ( yPos > 400 ) { yPos = 400; }
-      //   // if ( yPos < 0 ) { yPos = 0; }
-      //   //
-      //   // this.particles.attributes.position.array[i3 + 0] += ( xPos - this.particles.attributes.position.array[i3 + 0]) * 0.002;
-      //   // this.particles.attributes.position.array[i3 + 1] += ( yPos - this.particles.attributes.position.array[i3 + 1]) * 0.002;
-      //   this.particles.attributes.noisePosition.array[i3 + 0] = this.initialPosition[i3 + 0] - ( Math.random() * 101 - 50 );
-      //   this.particles.attributes.noisePosition.array[i3 + 1] = this.initialPosition[i3 + 1] - ( Math.random() * 101 - 50 );
-      //   this.particles.attributes.noisePosition.array[i3 + 2] = this.initialPosition[i3 + 2] - ( Math.random() * 101 - 50 );
-      // }
+      this.particles.attributes.noisePosition.needsUpdate = true;
+      for ( let i3 = 0; i3 < this.particles.attributes.position.array.length; i3 += 3 ) {
+        // let xPos = this.initialPosition[i3 + 0] - ( Math.random() * 51 - 25 );
+        // let yPos = this.initialPosition[i3 + 1] - ( Math.random() * 51 - 25 );
+        //
+        // if ( xPos > 800 ) { xPos = 800; }
+        // if ( xPos < 0 ) { xPos = 0; }
+        // if ( yPos > 400 ) { yPos = 400; }
+        // if ( yPos < 0 ) { yPos = 0; }
+        //
+        // this.particles.attributes.position.array[i3 + 0] += ( xPos - this.particles.attributes.position.array[i3 + 0]) * 0.002;
+        // this.particles.attributes.position.array[i3 + 1] += ( yPos - this.particles.attributes.position.array[i3 + 1]) * 0.002;
+        this.particles.attributes.noisePosition.array[i3 + 0] = this.initialPosition[i3 + 0] - ( Math.random() * 101 - 50 );
+        this.particles.attributes.noisePosition.array[i3 + 1] = this.initialPosition[i3 + 1] - ( Math.random() * 101 - 50 );
+        this.particles.attributes.noisePosition.array[i3 + 2] = this.initialPosition[i3 + 2] - ( Math.random() * 101 - 50 );
+      }
     }
   }
 }

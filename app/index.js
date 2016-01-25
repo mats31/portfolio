@@ -6,12 +6,12 @@ import 'gsap';
 let webgl;
 
 // webgl settings
-webgl = new Webgl(window.innerWidth, window.innerHeight);
-document.body.appendChild(webgl.renderer.domElement);
+webgl = new Webgl( window.innerWidth, window.innerHeight );
+document.body.appendChild( webgl.renderer.domElement );
 
 // GUI settings
 window.gui = new dat.GUI();
-window.gui.add(webgl.params, 'usePostprocessing');
+window.gui.add( webgl.params, 'usePostprocessing' );
 // gui.add(webgl.params, 'projectPositionX');
 // gui.add(webgl.params, 'projectPositionY');
 // gui.add(webgl.params, 'projectPositionZ');
@@ -19,18 +19,24 @@ window.gui.add(webgl.params, 'usePostprocessing');
 // gui.add(webgl.params, 'projectRotationY');
 // gui.add(webgl.params, 'projectRotationZ');
 
-// handle resize
-window.addEventListener('resize', resizeHandler);
+function resizeHandler() {
+  webgl.resize( window.innerWidth, window.innerHeight );
+}
+
+function animate() {
+  raf( animate );
+  webgl.render();
+}
+
+function onDocumentClick( e ) {
+  webgl.clickOnScene( e );
+}
 
 // let's play !
 animate();
 
-function resizeHandler() {
-  webgl.resize(window.innerWidth, window.innerHeight);
-}
+// handle resize
+window.addEventListener( 'resize', resizeHandler );
 
-function animate() {
-  raf(animate);
-
-  webgl.render();
-}
+// Click mouse
+window.addEventListener( 'click', onDocumentClick );

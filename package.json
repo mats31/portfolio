@@ -15,6 +15,7 @@
   "author": "Valentin Daguenet <valentin.daguenet@gmail.com> (http://vdaguenet.fr)",
   "license": "MIT",
   "dependencies": {
+    "clone": "^1.0.2",
     "dat-gui": "*",
     "gsap": "*",
     "raf": "*",
