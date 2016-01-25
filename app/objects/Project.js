@@ -2,7 +2,7 @@ const glslify = require( 'glslify' );
 import THREE from 'three';
 
 export default class Project extends THREE.Object3D {
-  constructor() {
+  constructor( datas ) {
     super();
 
     this.pathImg = 'img/';
@@ -12,15 +12,12 @@ export default class Project extends THREE.Object3D {
     this.particles = new THREE.BufferGeometry();
     this.density = 2;
     this.clock = new THREE.Clock();
+    this.datas = datas;
 
-    this.loadJson().then( ( result ) => {
-      this.datas = JSON.parse( result );
-
-      this.loadImage( this.datas.projects[this.step].images[0]).then( ( loadState ) => {
-        console.log( loadState );
-        this.createTexture();
-        this.createPoints();
-      });
+    this.loadImage( this.datas.projects[this.step].images[0]).then( ( loadState ) => {
+      console.log( loadState );
+      this.createTexture();
+      this.createPoints();
     });
 
     // this.texture = THREE.ImageUtils.loadTexture('textures/project1.png');
@@ -100,7 +97,7 @@ export default class Project extends THREE.Object3D {
   }
 
   createTexture() {
-    this.planeModelGeometry = new THREE.PlaneGeometry( 800, 400, 1 );
+    this.planeModelGeometry = new THREE.PlaneGeometry( 750, 750, 1 );
     this.planeGeometry = new THREE.BufferGeometry().fromGeometry( this.planeModelGeometry );
 
     this.planeUniforms = {
@@ -128,6 +125,7 @@ export default class Project extends THREE.Object3D {
     const colors = new Float32Array( 599997 );
     const sizes = new Float32Array( parseInt( 599997 / 3, 10 ) );
     const velocities = new Float32Array( parseInt( 599997 / 3, 10 ) );
+    const customTimes = new Float32Array( parseInt( 599997 / 3, 10 ) );
     let x = 0;
     let y = this.currentImg.height;
     let i3 = 0;
@@ -138,8 +136,8 @@ export default class Project extends THREE.Object3D {
 
       // positions[i3 + 0] = Math.floor( Math.random() * ( 400 - ( -400 ) + 1 ) ) + ( -400 );
       // positions[i3 + 1] = Math.floor( Math.random() * ( 0 - ( -400 ) + 1 ) ) + ( -400 );
-      positions[i3 + 0] = Math.random() * 801;
-      positions[i3 + 1] = Math.random() * 401;
+      positions[i3 + 0] = Math.random() * 400;
+      positions[i3 + 1] = Math.random() * 400;
       positions[i3 + 2] = 0;
 
       noisePositions[i3 + 0] = positions[i3 + 0];
@@ -150,8 +148,9 @@ export default class Project extends THREE.Object3D {
       colors[i3 + 1] = color.g;
       colors[i3 + 2] = color.b;
 
-      sizes[i] = 30;
-      velocities[i] = Math.random() * 11;
+      sizes[i] = 35;
+      velocities[i] = Math.random() * 3;
+      customTimes[i] = (Math.random() * (0.5 - 0.1) + 0.1).toFixed(4);
 
       i3 += 3;
       i++;
@@ -194,6 +193,7 @@ export default class Project extends THREE.Object3D {
     this.particles.addAttribute( 'noisePosition', new THREE.BufferAttribute( noisePositions, 3 ) );
     this.particles.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
     this.particles.addAttribute( 'velocity', new THREE.BufferAttribute( velocities, 1 ) );
+    this.particles.addAttribute( 'customTime', new THREE.BufferAttribute( customTimes, 1 ) );
     // this.particles.center();
 
     this.uniforms = {
@@ -201,7 +201,7 @@ export default class Project extends THREE.Object3D {
       color: { type: 'c', value: new THREE.Color( 0xffffff ) },
       texture: { type: 't', value: THREE.ImageUtils.loadTexture( './textures/particle.png' ) },
       map: { type: 't', value: THREE.ImageUtils.loadTexture( this.currentImg.src ) },
-      lightPosition: { type: 'v3', value: new THREE.Vector3( 800, 1000, -500 ) },
+      lightPosition: { type: 'v3', value: new THREE.Vector3( 750, 1000, -500 ) },
     };
     this.pMaterial = new THREE.ShaderMaterial({
       uniforms: this.uniforms,
@@ -214,8 +214,8 @@ export default class Project extends THREE.Object3D {
 
     this.particleSystem = new THREE.Points( this.particles, this.pMaterial );
     this.particleSystem.position.set( 0, 0, 0 );
-    this.particleSystem.castShadow = true;
-    this.particleSystem.receiveShadow = true;
+    this.particleSystem.castShadow = false;
+    this.particleSystem.receiveShadow = false;
     this.initialPosition = positions.slice( 0 );
     this.particleSystem.sortParticles = false;
     // this.particleSystem.rotation.set( 0, 0.35, 0 );
@@ -242,7 +242,11 @@ export default class Project extends THREE.Object3D {
 
   update() {
     if ( typeof this.particles.attributes.position !== 'undefined' ) {
-      this.uniforms.time.value = this.clock.getElapsedTime() * 0.9;
+      // this.particles.attributes.time.needsUpdate = true;
+      // for ( let i = 0; i < this.particles.attributes.time.array.length; i++ ) {
+      //   this.particles.attributes.time.array[i] = this.clock.getElapsedTime() * Math.random();
+      // }
+      this.uniforms.time.value = this.clock.getElapsedTime() * 0.5;
       // this.particleSystem.rotation.z = 0.01 * this.uniforms.time.value;
       // this.particles.attributes.noisePosition.needsUpdate = true;
       // for ( let i3 = 0; i3 < this.particles.attributes.position.array.length; i3 += 3 ) {

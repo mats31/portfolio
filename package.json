@@ -5,8 +5,8 @@
   "main": "app/index.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "budo app/index.js:build/main.js --dir ./public --live --open -- -t babelify -g glslify",
-    "build": "browserify -t babelify -t stripify -g glslify app/index.js | uglifyjs -o public/build/main.js"
+    "dev": "budo app/index.js:build/main.js --dir ./public --live --open -- -t babelify -t stylify -g glslify",
+    "build": "browserify -t babelify -t stylify -t stripify -g glslify app/index.js | uglifyjs -o public/build/main.js"
   },
   "repository": {
     "type": "git",
@@ -15,9 +15,9 @@
   "author": "Valentin Daguenet <valentin.daguenet@gmail.com> (http://vdaguenet.fr)",
   "license": "MIT",
   "dependencies": {
-    "clone": "^1.0.2",
     "dat-gui": "*",
     "gsap": "*",
+    "insert-css": "^0.2.0",
     "raf": "*",
     "three": "0.73.1"
   },
@@ -33,6 +33,12 @@
     "glslify": "^5.0.2",
     "path": "^0.12.7",
     "stripify": "*",
+    "stylify": "^1.3.1",
     "uglifyjs": "*"
+  },
+  "stylify": {
+    "paths": [
+      "./public/stylus/app.styl"
+    ]
   }
 }
