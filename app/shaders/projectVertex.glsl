@@ -5,7 +5,6 @@ uniform float time;
 attribute float size;
 attribute float velocity;
 attribute vec3 customColor;
-attribute vec3 noisePosition;
 attribute float customTime;
 
 varying vec3 vColor;
@@ -27,7 +26,7 @@ void main() {
                                         newPosition,
                                         1.0
                                       );
-particlePosition = newPosition.xy;
+  particlePosition = newPosition.xy;
 
 
   gl_PointSize = size * ( 50.0 / length( mvPosition.xyz ) );

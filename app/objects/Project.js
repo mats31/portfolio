@@ -2,7 +2,7 @@ const glslify = require( 'glslify' );
 import THREE from 'three';
 
 export default class Project extends THREE.Object3D {
-  constructor( datas ) {
+  constructor( width, height, datas ) {
     super();
 
     this.pathImg = 'img/';
@@ -12,6 +12,8 @@ export default class Project extends THREE.Object3D {
     this.particles = new THREE.BufferGeometry();
     this.density = 2;
     this.clock = new THREE.Clock();
+    this.width = width;
+    this.height = height;
     this.datas = datas;
 
     this.loadImage( this.datas.projects[this.step].images[0]).then( ( loadState ) => {
@@ -118,10 +120,8 @@ export default class Project extends THREE.Object3D {
 
   createPoints() {
     const pixels = this.context.getImageData( 0, 0, this.currentImg.width, this.currentImg.height );
-    console.log(pixels);
     const step = this.density * 4;
     const positions = new Float32Array( 599997 );
-    const noisePositions = new Float32Array( 599997 );
     const colors = new Float32Array( 599997 );
     const sizes = new Float32Array( parseInt( 599997 / 3, 10 ) );
     const velocities = new Float32Array( parseInt( 599997 / 3, 10 ) );
@@ -132,17 +132,13 @@ export default class Project extends THREE.Object3D {
     let i = 0;
 
     for ( let j = 0; i < 400000; i++ ) {
-      const color = new THREE.Color( 'red' );
+      const color = new THREE.Color( 'white' );
 
       // positions[i3 + 0] = Math.floor( Math.random() * ( 400 - ( -400 ) + 1 ) ) + ( -400 );
       // positions[i3 + 1] = Math.floor( Math.random() * ( 0 - ( -400 ) + 1 ) ) + ( -400 );
-      positions[i3 + 0] = Math.random() * 400;
-      positions[i3 + 1] = Math.random() * 400;
+      positions[i3 + 0] = Math.random() * 800;
+      positions[i3 + 1] = Math.random() * 800;
       positions[i3 + 2] = 0;
-
-      noisePositions[i3 + 0] = positions[i3 + 0];
-      noisePositions[i3 + 1] = positions[i3 + 0];
-      noisePositions[i3 + 2] = 0;
 
       colors[i3 + 0] = color.r;
       colors[i3 + 1] = color.g;
@@ -190,7 +186,6 @@ export default class Project extends THREE.Object3D {
 
     this.particles.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
     this.particles.addAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
-    this.particles.addAttribute( 'noisePosition', new THREE.BufferAttribute( noisePositions, 3 ) );
     this.particles.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
     this.particles.addAttribute( 'velocity', new THREE.BufferAttribute( velocities, 1 ) );
     this.particles.addAttribute( 'customTime', new THREE.BufferAttribute( customTimes, 1 ) );
@@ -200,8 +195,13 @@ export default class Project extends THREE.Object3D {
       time: { type: 'f', value: Date.now() * 0.005 },
       color: { type: 'c', value: new THREE.Color( 0xffffff ) },
       texture: { type: 't', value: THREE.ImageUtils.loadTexture( './textures/particle.png' ) },
-      map: { type: 't', value: THREE.ImageUtils.loadTexture( this.currentImg.src ) },
-      lightPosition: { type: 'v3', value: new THREE.Vector3( 750, 1000, -500 ) },
+      firstMap: { type: 't', value: THREE.ImageUtils.loadTexture( this.currentImg.src ) },
+      secondMap: { type: 't', value: THREE.ImageUtils.loadTexture( this.currentImg.src ) },
+      easingColor: { type: 'f', value: 1 },
+      easingFirstColor: { type: 'f', value: 1 },
+      height: { type: 'f', value: this.height },
+      width: { type: 'f', value: this.width },
+      radius: { type: 'f', value: 600 },
     };
     this.pMaterial = new THREE.ShaderMaterial({
       uniforms: this.uniforms,
@@ -243,12 +243,28 @@ export default class Project extends THREE.Object3D {
   changeProject( i ) {
     const image = this.datas.projects[i].images[0];
     this.loadImage( image ).then( ( loadState ) => {
-      this.uniforms.map.value = THREE.ImageUtils.loadTexture( this.pathImg + image );
+      if ( this.uniforms.secondMap.value.sourceFile !== this.pathImg + image ) {
+        this.uniforms.easingColor.value = 0;
+        this.uniforms.easingFirstColor.value = 1;
+        this.uniforms.firstMap.value = this.uniforms.secondMap.value;
+        this.uniforms.secondMap.value = THREE.ImageUtils.loadTexture( this.pathImg + image );
+      }
     });
   }
 
   update() {
     if ( typeof this.particles.attributes.position !== 'undefined' ) {
+      if ( this.uniforms.easingColor.value <= 1 ) {
+        this.uniforms.easingColor.value += 0.09;
+      }
+      if ( this.uniforms.easingFirstColor.value >= 0.1 ) {
+        this.uniforms.easingFirstColor.value -= 0.09;
+      }
+
+      // this.uniforms.radius.value += 1;
+      // console.log(this.uniforms.radius.value);
+      // this.particles.attributes.customColor.needsUpdate = true;
+      // console.log(this.particles.attributes.customColor.array[70000]);
       // this.particles.attributes.time.needsUpdate = true;
       // for ( let i = 0; i < this.particles.attributes.time.array.length; i++ ) {
       //   this.particles.attributes.time.array[i] = this.clock.getElapsedTime() * Math.random();

@@ -16,7 +16,7 @@ function onCanvasMouseMove( e ) {
   home.mouseMove( e );
 }
 
-function onItemMove( e ) {
+function onItemEnter( e ) {
   console.log( e );
   webgl.project.changeProject( e.target.attributes[0].value );
 }
@@ -67,7 +67,7 @@ loadJson().then( ( result ) => {
   // Toggle animation texture event
   const items = document.querySelectorAll( 'nav li' );
   for ( let i = 0; i < items.length; i++ ) {
-    items[i].addEventListener( 'mouseover', onItemMove );
+    items[i].addEventListener( 'mouseenter', onItemEnter );
   }
 
   // Let's play !

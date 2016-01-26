@@ -36,8 +36,8 @@ export default class Webgl {
 
     this.prepareRaycaster();
 
-    this.project = new Project( this.datas );
-    this.project.position.set( -200, -200, 0 );
+    this.project = new Project( width, height, this.datas );
+    this.project.position.set( -400, -400, 0 );
     this.scene.add( this.project );
 
     // this.light = new Light();
