@@ -14,6 +14,7 @@ function resizeHandler() {
 
 function onCanvasMouseMove( e ) {
   home.mouseMove( e );
+  webgl.project.changeRadius( e );
 }
 
 function onItemEnter( e ) {

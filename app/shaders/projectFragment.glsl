@@ -20,7 +20,7 @@ void main() {
   //gl_FragColor = vec4( color, 1.0 );
   // gl_FragColor = vec4( color, 1.0) * texture2D( texture, vUv );
   // gl_FragColor = texture2D( map, vec2( normalize( particlePosition.x ), normalize( particlePosition.y ) ) );
-  // if (particlePosition.x < 200.0 || particlePosition.x > 600.0 || particlePosition.y < 200.0 || particlePosition.y > 600.0) {
+  // if (particlePosition.x < 0.0 || particlePosition.x > 800.0 || particlePosition.y < 0.0 || particlePosition.y > 800.0) {
   //   gl_FragColor = vec4(1.0, 1.0, 1.0, 0.1);
   // } else {
     // float opacity = sin(M_PI * particlePosition.x / 800.0) * sin(M_PI * particlePosition.y / 800.0);
@@ -30,11 +30,13 @@ void main() {
     vec4 colorOpacity = vec4( 1.0, 1.0, 1.0, opacity );
     vec4 oldColor = colorOpacity * texture2D( firstMap, vec2(particlePosition.x / 800.0, particlePosition.y / 800.0) );
 
-    vec4 texture = texture2D( secondMap, vec2(particlePosition.x / 800.0, particlePosition.y / 800.0) );
     // texture.a = opacity;
     //vec4 targetColor = vec4( 1.0, 1.0, 1.0, 1.0 );
 
-    vec4 targetColor = opacity * texture2D( secondMap, vec2(particlePosition.x / 800.0, particlePosition.y / 800.0) );
+    // vec4 targetColor = opacity * texture2D( secondMap, vec2(particlePosition.x / 800.0, particlePosition.y / 800.0) );
+    vec4 texture = texture2D( secondMap, vec2(particlePosition.x / 800.0, particlePosition.y / 800.0) );
+    // texture.a = 1.0;
+    vec4 targetColor = opacity + texture;
     // if ( targetColor.r == 0.0 &&  targetColor.g == 0.0 && targetColor.b == 0.0 ) {
     //   gl_FragColor = vec4(1.0, 1.0, 1.0, 0.1);
     // } else {

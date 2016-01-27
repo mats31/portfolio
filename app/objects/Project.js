@@ -15,6 +15,7 @@ export default class Project extends THREE.Object3D {
     this.width = width;
     this.height = height;
     this.datas = datas;
+    this.radius = 800;
 
     this.loadImage( this.datas.projects[this.step].images[0]).then( ( loadState ) => {
       console.log( loadState );
@@ -201,7 +202,7 @@ export default class Project extends THREE.Object3D {
       easingFirstColor: { type: 'f', value: 1 },
       height: { type: 'f', value: this.height },
       width: { type: 'f', value: this.width },
-      radius: { type: 'f', value: 600 },
+      radius: { type: 'f', value: this.radius },
     };
     this.pMaterial = new THREE.ShaderMaterial({
       uniforms: this.uniforms,
@@ -250,6 +251,14 @@ export default class Project extends THREE.Object3D {
         this.uniforms.secondMap.value = THREE.ImageUtils.loadTexture( this.pathImg + image );
       }
     });
+  }
+
+  changeRadius( e ) {
+    const dist = Math.abs( e.clientX - this.width / 2 );
+
+    let diff = this.radius * Math.abs( ( dist / ( this.width / 2 ) ) - 1 );
+    if ( diff < 300 ) { diff = 300; }
+    this.uniforms.radius.value += ( diff - this.uniforms.radius.value ) * 0.2;
   }
 
   update() {
