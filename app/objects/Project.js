@@ -140,11 +140,7 @@ export default class Project extends THREE.Object3D {
       positions[i3 + 0] = Math.random() * 800;
       positions[i3 + 1] = Math.random() * 800;
       positions[i3 + 2] = 0;
-
-      colors[i3 + 0] = color.r;
-      colors[i3 + 1] = color.g;
-      colors[i3 + 2] = color.b;
-
+      
       sizes[i] = 35;
       velocities[i] = Math.random() * 3;
       customTimes[i] = (Math.random() * (0.5 - 0.1) + 0.1).toFixed(4);
@@ -186,7 +182,6 @@ export default class Project extends THREE.Object3D {
     // }
 
     this.particles.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-    this.particles.addAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
     this.particles.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
     this.particles.addAttribute( 'velocity', new THREE.BufferAttribute( velocities, 1 ) );
     this.particles.addAttribute( 'customTime', new THREE.BufferAttribute( customTimes, 1 ) );
@@ -200,8 +195,6 @@ export default class Project extends THREE.Object3D {
       secondMap: { type: 't', value: THREE.ImageUtils.loadTexture( this.currentImg.src ) },
       easingColor: { type: 'f', value: 1 },
       easingFirstColor: { type: 'f', value: 1 },
-      height: { type: 'f', value: this.height },
-      width: { type: 'f', value: this.width },
       radius: { type: 'f', value: this.radius },
     };
     this.pMaterial = new THREE.ShaderMaterial({
@@ -245,7 +238,7 @@ export default class Project extends THREE.Object3D {
     const image = this.datas.projects[i].images[0];
     this.loadImage( image ).then( ( loadState ) => {
       if ( this.uniforms.secondMap.value.sourceFile !== this.pathImg + image ) {
-        this.uniforms.easingColor.value = 0;
+        this.uniforms.easingColor.value = 0.1;
         this.uniforms.easingFirstColor.value = 1;
         this.uniforms.firstMap.value = this.uniforms.secondMap.value;
         this.uniforms.secondMap.value = THREE.ImageUtils.loadTexture( this.pathImg + image );

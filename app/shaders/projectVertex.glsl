@@ -4,19 +4,12 @@ uniform float time;
 
 attribute float size;
 attribute float velocity;
-attribute vec3 customColor;
 attribute float customTime;
 
-varying vec3 vColor;
-varying vec2 vUv;
 varying vec2 particlePosition;
 
 void main() {
 
-  vColor = customColor;
-  vUv = uv;
-
-  // position.x = position.x * cos( time );
   vec3 newPosition = vec3(
                         position.x + cos(time * customTime) * velocity * ( 15.0 * M_PI ) + sin(time * customTime) * velocity * ( 30.0 * M_PI ),
                         position.y + cos(time * customTime) * velocity * ( 15.0 * M_PI ) + cos(time * customTime) * velocity * ( 30.0 * M_PI ),
