@@ -1,5 +1,7 @@
 const glslify = require( 'glslify' );
 import THREE from 'three';
+import ProjectPage from '../ProjectPage';
+import clone from 'clone';
 
 export default class Project extends THREE.Object3D {
   constructor( width, height, datas ) {
@@ -16,8 +18,10 @@ export default class Project extends THREE.Object3D {
     this.height = height;
     this.datas = datas;
     this.radius = 800;
+    this.leave = false;
+    this.projectPage = new ProjectPage();
 
-    this.loadImage( this.datas.projects[this.step].images[0]).then( ( loadState ) => {
+    this.loadImage( this.datas.projects[this.step].image).then( ( loadState ) => {
       console.log( loadState );
       this.createTexture();
       this.createPoints();
@@ -140,9 +144,9 @@ export default class Project extends THREE.Object3D {
       positions[i3 + 0] = Math.random() * 800;
       positions[i3 + 1] = Math.random() * 800;
       positions[i3 + 2] = 0;
-      
-      sizes[i] = 35;
-      velocities[i] = Math.random() * 3;
+
+      sizes[i] = 10;
+      velocities[i] = Math.random() * 1.5;
       customTimes[i] = (Math.random() * (0.5 - 0.1) + 0.1).toFixed(4);
 
       i3 += 3;
@@ -187,15 +191,21 @@ export default class Project extends THREE.Object3D {
     this.particles.addAttribute( 'customTime', new THREE.BufferAttribute( customTimes, 1 ) );
     // this.particles.center();
 
+    this.particleTexture = THREE.ImageUtils.loadTexture( './textures/particle.png' );
+    this.particleTexture.minFilter = THREE.LinearFilter;
+    this.imageTexture = THREE.ImageUtils.loadTexture( this.currentImg.src );
+    this.imageTexture.minFilter = THREE.LinearFilter;
+
     this.uniforms = {
       time: { type: 'f', value: Date.now() * 0.005 },
       color: { type: 'c', value: new THREE.Color( 0xffffff ) },
-      texture: { type: 't', value: THREE.ImageUtils.loadTexture( './textures/particle.png' ) },
-      firstMap: { type: 't', value: THREE.ImageUtils.loadTexture( this.currentImg.src ) },
-      secondMap: { type: 't', value: THREE.ImageUtils.loadTexture( this.currentImg.src ) },
+      texture: { type: 't', value: this.particleTexture },
+      firstMap: { type: 't', value: this.imageTexture },
+      secondMap: { type: 't', value: this.imageTexture },
       easingColor: { type: 'f', value: 1 },
       easingFirstColor: { type: 'f', value: 1 },
       radius: { type: 'f', value: this.radius },
+      leave: { type: 'f', value: 0 },
     };
     this.pMaterial = new THREE.ShaderMaterial({
       uniforms: this.uniforms,
@@ -210,7 +220,11 @@ export default class Project extends THREE.Object3D {
     this.particleSystem.position.set( 0, 0, 0 );
     this.particleSystem.castShadow = false;
     this.particleSystem.receiveShadow = false;
-    this.initialPosition = positions.slice( 0 );
+
+    /** We can do this too, but doesn't work on Safari (I don't know why) **/
+    /** this.initialPosition = positions.slice( 0 ); **/
+    /** **** **/
+    this.initialPosition = clone( positions );
     this.particleSystem.sortParticles = false;
     // this.particleSystem.rotation.set( 0, 0.35, 0 );
     this.add( this.particleSystem );
@@ -232,26 +246,35 @@ export default class Project extends THREE.Object3D {
 
     const bbox = new THREE.Box3().setFromObject( this.particleSystem );
     console.log( bbox );
+    console.log('allo')
   }
 
   changeProject( i ) {
-    const image = this.datas.projects[i].images[0];
+    const image = this.datas.projects[i].image;
     this.loadImage( image ).then( ( loadState ) => {
       if ( this.uniforms.secondMap.value.sourceFile !== this.pathImg + image ) {
+        const newTexture = THREE.ImageUtils.loadTexture( this.pathImg + image );
         this.uniforms.easingColor.value = 0.1;
         this.uniforms.easingFirstColor.value = 1;
         this.uniforms.firstMap.value = this.uniforms.secondMap.value;
-        this.uniforms.secondMap.value = THREE.ImageUtils.loadTexture( this.pathImg + image );
+        newTexture.minFilter = THREE.LinearFilter;
+        this.uniforms.secondMap.value = newTexture;
       }
     });
   }
 
-  changeRadius( e ) {
-    const dist = Math.abs( e.clientX - this.width / 2 );
+  // changeRadius( e ) {
+  //   const dist = Math.abs( e.clientX - this.width / 2 );
+  //
+  //   let diff = this.radius * Math.abs( ( dist / ( this.width / 2 ) ) - 1 );
+  //   if ( diff < 300 ) { diff = 300; }
+  //   this.uniforms.radius.value += ( diff - this.uniforms.radius.value ) * 0.2;
+  // }
 
-    let diff = this.radius * Math.abs( ( dist / ( this.width / 2 ) ) - 1 );
-    if ( diff < 300 ) { diff = 300; }
-    this.uniforms.radius.value += ( diff - this.uniforms.radius.value ) * 0.2;
+  goToPageProject( e ) {
+    const index = e.target.attributes[0].value;
+    this.projectPage.setPage( this.datas.projects[index]);
+    this.leave = true;
   }
 
   update() {
@@ -261,6 +284,13 @@ export default class Project extends THREE.Object3D {
       }
       if ( this.uniforms.easingFirstColor.value >= 0.1 ) {
         this.uniforms.easingFirstColor.value -= 0.09;
+      }
+      if ( this.leave ) {
+        this.uniforms.leave.value += ( 5000 - this.uniforms.leave.value ) * 0.02;
+        this.uniforms.radius.value += ( 600 - this.uniforms.radius.value ) * 0.1;
+        if ( this.uniforms.leave.value > 2600 ) {
+          this.leave = false;
+        }
       }
 
       // this.uniforms.radius.value += 1;

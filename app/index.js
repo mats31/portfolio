@@ -14,12 +14,18 @@ function resizeHandler() {
 
 function onCanvasMouseMove( e ) {
   home.mouseMove( e );
-  webgl.project.changeRadius( e );
+  webgl.updateMouse( e );
+  // webgl.project.changeRadius( e );
 }
 
 function onItemEnter( e ) {
   console.log( e );
+  home.animItem( e );
   webgl.project.changeProject( e.target.attributes[0].value );
+}
+
+function onItemClick( e ) {
+  webgl.goToProject( e );
 }
 
 function animate() {
@@ -69,6 +75,7 @@ loadJson().then( ( result ) => {
   const items = document.querySelectorAll( 'nav li' );
   for ( let i = 0; i < items.length; i++ ) {
     items[i].addEventListener( 'mouseenter', onItemEnter );
+    items[i].addEventListener( 'click', onItemClick );
   }
 
   // Let's play !
@@ -78,5 +85,5 @@ loadJson().then( ( result ) => {
 // Handle resize
 window.addEventListener( 'resize', resizeHandler );
 
-// Insert our stylus css into our app
+// Insert our stylus css into the app
 insertCss( require( '../public/stylus/app.styl' ) );

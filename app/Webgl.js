@@ -17,6 +17,7 @@ export default class Webgl {
     };
 
     this.datas = datas;
+    this.mouse = new THREE.Vector2();
 
     this.camera = new THREE.PerspectiveCamera( 50, width / height, 1, 10000 );
     this.camera.position.z = 1000;
@@ -65,10 +66,18 @@ export default class Webgl {
     this.renderer.setSize( width, height );
   }
 
+  updateMouse( e ) {
+    this.mouse.x = ( e.clientX - window.innerWidth / 2 ) / 5;
+    this.mouse.y = ( e.clientY - window.innerHeight / 2 ) / 5;
+  }
+
   prepareRaycaster() {
     this.raycaster = new THREE.Raycaster();
-    this.mouse = new THREE.Vector2();
     this.offset = new THREE.Vector3();
+  }
+
+  goToProject( e ) {
+    this.project.goToPageProject( e );
   }
 
   render() {
@@ -79,6 +88,16 @@ export default class Webgl {
     }
 
     this.project.update();
-    // this.ground.update();
+    // if ( this.project.uniforms.leave.value > 2600 ) {
+    //   this.renderer.domElement.className = '';
+    // }
+    if ( this.project.leave ) {
+      document.getElementById( 'wrapper' ).className = '';
+      document.getElementById( 'projectWrapper' ).className = 'active';
+    }
+
+    this.camera.position.x += ( this.mouse.x - this.camera.position.x / 2.0 ) * 0.05;
+    this.camera.position.y += ( -this.mouse.y - this.camera.position.y / 2.0 ) * 0.05;
+    this.camera.lookAt( this.scene.position );
   }
 }

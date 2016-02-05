@@ -1,58 +1,84 @@
 {
 	"projects": [
 		{
+			"name": "Call To Make",
+			"description": "An Electron application based on an Arduino, Raspberry PI and dial phone",
+    	"image": "experiment-arduino.jpg",
+			"type": "experiment",
+			"intervention": ["Electron", "React", "Raspberry", "Arduino", "Project creator"],
+			"target": "Go to the Github",
+			"url": "https://github.com/Jeremboo/callToMake"
+		},
+		{
 			"name": "Nice To Meet You",
 			"description": "School project for the cosmetic brand Sisley",
-    	"images": ["project-ntmy.png"],
-			"type": "project"
+    	"image": "project-ntmy.png",
+			"type": "project",
+			"intervention": ["Swift", "Project creator"],
+			"target": "Go to the Behance",
+			"url": "https://www.behance.net/gallery/32692157/NTMY-by-Sisley"
 		},
 		{
 			"name": "Star Christmas",
 			"description": "A little game based on the Star Wars Universe",
-    	"images": ["experiment-star-christmas.png"],
-			"type": "experiment"
+    	"image": "experiment-star-christmas.png",
+			"type": "experiment",
+			"intervention": ["ThreeJS", "GLSL", "ES6"],
+			"target": "Go to the website",
+			"url": "http://www.mathis-biabiany.fr/webgl/starwars/"
 		},
 		{
 			"name": "Bienvenue Dans Mon Hybride",
 			"description": "Project for Toyota",
-			"images": ["project-bienvenue-dans-mon-hybride.png"],
-			"type": "project"
+			"image": "project-bienvenue-dans-mon-hybride.png",
+			"type": "project",
+			"intervention": ["AngularJS", "Process"],
+			"target": "Go to the website",
+			"url": "https://iframe.bienvenuedansmonhybride.toyota.fr/"
 		},
 		{
 			"name": "Equalizer Galaxy",
 			"description": "The render of a webgl workshop at Gobelins school.",
-    	"images": ["experiment-equalizer-galaxy.png"],
-			"type": "experiment"
+    	"image": "experiment-equalizer-galaxy.png",
+			"type": "experiment",
+			"intervention": ["ThreeJS", "GLSL", "ES6", "Web Audio API"],
+			"target": "Go to the website",
+			"url": "http://www.mathis-biabiany.fr/webgl/starwars/"
 		},
 		{
 			"name": "Equalizer",
 			"description": "First test with Web Audio API.",
-    	"images": ["experiment-equalizer.png"],
-			"type": "experiment"
+    	"image": "experiment-equalizer.png",
+			"type": "experiment",
+			"intervention": ["ThreeJS", "ES6", "Web Audio API"],
+			"target": "Go to the website",
+			"url": "http://www.mathis-biabiany.fr/webgl/soundgraph/"
 		},
 		{
 			"name": "Math&Malice",
 			"description": "The website of the digital agency Touaregs based in Paris.",
-			"images": ["project-mathetmalice.png"],
-			"type": "project"
+			"image": "project-mathetmalice.png",
+			"type": "project",
+			"intervention": ["Objective-C", "AngularJs", "PHP/SQL", "Project creator"],
+			"target": "Go to the behance",
+			"url": "https://www.behance.net/gallery/26357979/Math-Malice"
 		},
 		{
 			"name": "Touaregs Agency Website",
 			"description": "The website of the digital agency Touaregs based in Paris.",
-    	"images": ["project-touaregs.png"],
-			"type": "project"
+    	"image": "project-touaregs.png",
+			"type": "project",
+			"intervention": ["Jquery", "Vanilla", "Process"],
+			"target": "Go to the website",
+			"url": "http://www.touaregs.com/"
 		},
 		{
 			"name": "SNCF",
 			"description": "School project created with the SNCF",
-			"images": ["project-sncf.png"],
-			"type": "project"
-		},
-		{
-			"name": "My Brand As A Service",
-			"description": "First project at Touaregs",
-			"images": ["project-my-brand-as-a-service.png"],
-			"type": "project"
+			"image": "project-sncf.png",
+			"type": "project",
+			"intervention": ["MongoDB", "NodeJS", "Vanilla", "Project creator"],
+			"target": "Go to the video"
 		}
 	]
 }
