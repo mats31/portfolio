@@ -43,7 +43,7 @@
 			"type": "experiment",
 			"intervention": ["ThreeJS", "GLSL", "ES6", "Web Audio API"],
 			"target": "Go to the website",
-			"url": "http://www.mathis-biabiany.fr/webgl/starwars/"
+			"url": "http://workshop.crma2016.gobelins.fr"
 		},
 		{
 			"name": "Equalizer",
@@ -78,7 +78,8 @@
 			"image": "project-sncf.png",
 			"type": "project",
 			"intervention": ["MongoDB", "NodeJS", "Vanilla", "Project creator"],
-			"target": "Go to the video"
+			"target": "See the video",
+			"url": "https://vimeo.com/154376698"
 		}
 	]
 }

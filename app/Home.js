@@ -13,7 +13,6 @@ export default class Home {
     const index = e.target.attributes[0].value;
 
     if ( li.target.className !== ' width' ) {
-      console.log(lis);
       for ( let i = 0; i < lis.length; i++ ) {
         lis[i].className = '';
       }
@@ -65,7 +64,7 @@ export default class Home {
   }
 
   mouseMove( e ) {
-    if ( e.clientX < window.innerWidth * 0.15 ) {
+    if ( e.clientX < window.innerWidth * 0.38 ) {
       document.querySelector( '.project-list' ).className = 'project-list project-container active';
       this.projectListElement.className = 'active';
     } else {
@@ -73,7 +72,7 @@ export default class Home {
       this.projectListElement.className = '';
     }
 
-    if ( e.clientX > window.innerWidth * 0.85 ) {
+    if ( e.clientX > window.innerWidth * 0.62 ) {
       document.querySelector( '.experiment-list' ).className = 'experiment-list project-container active';
       this.experimentListElement.className = 'active';
     } else {
