@@ -1,17 +1,8 @@
 {
 	"projects": [
 		{
-			"name": "Call To Make",
-			"description": "An Electron application based on an Arduino, Raspberry PI and dial phone",
-    	"image": "experiment-arduino.jpg",
-			"type": "experiment",
-			"intervention": ["Electron", "React", "Raspberry", "Arduino", "Project creator"],
-			"target": "Go to the Github",
-			"url": "https://github.com/Jeremboo/callToMake"
-		},
-		{
 			"name": "Nice To Meet You",
-			"description": "School project for the cosmetic brand Sisley",
+			"description": "Event application maded for the cosmetic brand Sisley at Gobelins. The purpose is to try to seduce you...",
     	"image": "project-ntmy.png",
 			"type": "project",
 			"intervention": ["Swift", "Project creator"],
@@ -19,8 +10,17 @@
 			"url": "https://www.behance.net/gallery/32692157/NTMY-by-Sisley"
 		},
 		{
+			"name": "Call To Make",
+			"description": "An Electron application based on an Arduino, Raspberry PI and a rotary phone. The phone acts as device to reach the features of the app.",
+    	"image": "experiment-arduino.jpg",
+			"type": "experiment",
+			"intervention": ["Electron", "React", "Raspberry", "Arduino", "Project creator"],
+			"target": "Go to the Github",
+			"url": "https://github.com/Jeremboo/callToMake"
+		},
+		{
 			"name": "Star Christmas",
-			"description": "A little game based on the Star Wars Universe",
+			"description": "A little game based on the Star Wars universe in WebGL.",
     	"image": "experiment-star-christmas.png",
 			"type": "experiment",
 			"intervention": ["ThreeJS", "GLSL", "ES6"],
@@ -29,7 +29,7 @@
 		},
 		{
 			"name": "Bienvenue Dans Mon Hybride",
-			"description": "Project for Toyota",
+			"description": "A web application for Toyota which let their users to share about the hybrid cars",
 			"image": "project-bienvenue-dans-mon-hybride.png",
 			"type": "project",
 			"intervention": ["AngularJS", "Process"],
@@ -38,7 +38,7 @@
 		},
 		{
 			"name": "Equalizer Galaxy",
-			"description": "The render of a webgl workshop at Gobelins school.",
+			"description": "A WebGL project realized at Gobelins. The render reacts to the audio by using the HTML Web Audio API.",
     	"image": "experiment-equalizer-galaxy.png",
 			"type": "experiment",
 			"intervention": ["ThreeJS", "GLSL", "ES6", "Web Audio API"],
@@ -47,7 +47,7 @@
 		},
 		{
 			"name": "Equalizer",
-			"description": "First test with Web Audio API.",
+			"description": "My first test with the HTML Web Audio API and WebGL.",
     	"image": "experiment-equalizer.png",
 			"type": "experiment",
 			"intervention": ["ThreeJS", "ES6", "Web Audio API"],
@@ -56,7 +56,7 @@
 		},
 		{
 			"name": "Math&Malice",
-			"description": "The website of the digital agency Touaregs based in Paris.",
+			"description": "An educative iPad game realized at Gobelins for the 7-8 years old learning mathematics.",
 			"image": "project-mathetmalice.png",
 			"type": "project",
 			"intervention": ["Objective-C", "AngularJs", "PHP/SQL", "Project creator"],
@@ -65,7 +65,7 @@
 		},
 		{
 			"name": "Touaregs Agency Website",
-			"description": "The website of the digital agency Touaregs based in Paris.",
+			"description": "The website of the digital web agency Touaregs based in Paris.",
     	"image": "project-touaregs.png",
 			"type": "project",
 			"intervention": ["Jquery", "Vanilla", "Process"],
@@ -74,7 +74,7 @@
 		},
 		{
 			"name": "SNCF",
-			"description": "School project created with the SNCF",
+			"description": "A web application realized at Gobelins with the SNCF. By using false datas, we show the influx in stations.",
 			"image": "project-sncf.png",
 			"type": "project",
 			"intervention": ["MongoDB", "NodeJS", "Vanilla", "Project creator"],

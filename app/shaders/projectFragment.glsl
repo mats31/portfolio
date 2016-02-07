@@ -5,13 +5,14 @@ uniform sampler2D secondMap;
 uniform float easingColor;
 uniform float easingFirstColor;
 uniform float radius;
+uniform float opacityValue;
 uniform vec3 color;
 
 varying vec2 particlePosition;
 
 void main() {
 
-  float opacity = abs(clamp(distance(particlePosition, vec2(400, 400)) / radius, 0.0, 1.0) - 1.0) + 0.25;
+  float opacity = (abs(clamp(distance(particlePosition, vec2(400, 400)) / radius, 0.0, 1.0) - 1.0) + 0.15) * opacityValue;
 
   vec4 oldColor = vec4( 1.0, 1.0, 1.0, opacity ) * texture2D( firstMap, vec2(particlePosition.x / 800.0, particlePosition.y / 800.0) );
 
