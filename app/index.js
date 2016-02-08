@@ -2,8 +2,7 @@ import Webgl from './Webgl';
 import Home from './Home';
 import raf from 'raf';
 import dat from 'dat-gui';
-import insertCss from 'insert-css';
-import 'gsap';
+// import insertCss from 'insert-css';
 
 let webgl;
 let home;
@@ -61,10 +60,6 @@ loadJson().then( ( result ) => {
   webgl = new Webgl( window.innerWidth, window.innerHeight, datas );
   document.getElementById( 'wrapper' ).appendChild( webgl.renderer.domElement );
 
-  // // GUI settings
-  // window.gui = new dat.GUI();
-  // window.gui.add( webgl.params, 'usePostprocessing' );
-
   // Set interface
   home = new Home( datas );
 
@@ -87,3 +82,6 @@ loadJson().then( ( result ) => {
 
 // Handle resize
 window.addEventListener( 'resize', resizeHandler );
+
+/* *** insert our stylus css into our app *** */
+// insertCss(require('./stylus/app.styl'));

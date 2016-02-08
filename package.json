@@ -16,7 +16,6 @@
   "license": "MIT",
   "dependencies": {
     "dat-gui": "*",
-    "gsap": "*",
     "insert-css": "^0.2.0",
     "raf": "*",
     "three": "0.73.1"
