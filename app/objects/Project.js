@@ -1,6 +1,5 @@
 const glslify = require( 'glslify' );
 import THREE from 'three';
-import ProjectPage from '../ProjectPage';
 import clone from 'clone';
 
 export default class Project extends THREE.Object3D {
@@ -18,7 +17,6 @@ export default class Project extends THREE.Object3D {
     this.height = height;
     this.datas = datas;
     this.radius = 800;
-    this.projectPage = new ProjectPage();
 
     this.loadImage( this.datas.projects[this.step].image ).then( ( loadState ) => {
       this.createPoints();
@@ -127,7 +125,7 @@ export default class Project extends THREE.Object3D {
       radius: { type: 'f', value: this.radius },
       leave: { type: 'f', value: 0 },
     };
-    this.pMaterial = new THREE.ShaderMaterial({
+    this.material = new THREE.ShaderMaterial({
       uniforms: this.uniforms,
       vertexShader: glslify( '../shaders/projectVertex.glsl' ),
       fragmentShader: glslify( '../shaders/projectFragment.glsl' ),
@@ -136,7 +134,7 @@ export default class Project extends THREE.Object3D {
       transparent: true,
     });
 
-    this.particleSystem = new THREE.Points( this.particles, this.pMaterial );
+    this.particleSystem = new THREE.Points( this.particles, this.material );
     this.particleSystem.position.set( 0, 0, 0 );
     this.particleSystem.castShadow = false;
     this.particleSystem.receiveShadow = false;
@@ -147,9 +145,6 @@ export default class Project extends THREE.Object3D {
     this.initialPosition = clone( positions );
     this.particleSystem.sortParticles = false;
     this.add( this.particleSystem );
-
-    const bbox = new THREE.Box3().setFromObject( this.particleSystem );
-    console.log( bbox );
   }
 
   changeProject( i ) {

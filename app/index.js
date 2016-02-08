@@ -2,7 +2,7 @@ import Webgl from './Webgl';
 import Home from './Home';
 import raf from 'raf';
 import dat from 'dat-gui';
-// import insertCss from 'insert-css';
+import insertCss from 'insert-css';
 
 let webgl;
 let home;
@@ -17,7 +17,6 @@ function onCanvasMouseMove( e ) {
 }
 
 function onItemEnter( e ) {
-  console.log( e );
   home.animItem( e );
   webgl.project.changeProject( e.target.attributes[0].value );
   webgl.updateMouse( e );
@@ -84,4 +83,4 @@ loadJson().then( ( result ) => {
 window.addEventListener( 'resize', resizeHandler );
 
 /* *** insert our stylus css into our app *** */
-// insertCss(require('./stylus/app.styl'));
+insertCss(require('../public/stylus/app.styl'));

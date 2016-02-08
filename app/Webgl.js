@@ -1,8 +1,6 @@
 import THREE from 'three';
 window.THREE = THREE;
-import Light from './objects/Light';
 import Project from './objects/Project';
-import Ground from './objects/Ground';
 
 export default class Webgl {
   constructor( width, height, datas ) {
@@ -17,13 +15,10 @@ export default class Webgl {
     this.camera.position.z = 1000;
 
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.FogExp2( 0xe3e3e3, 0.001 );
 
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize( width, height );
     this.renderer.setClearColor( 0x000000 );
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    this.renderer.shadowMap.enabled = true;
 
     this.composer = null;
     this.initPostprocessing();
@@ -58,6 +53,8 @@ export default class Webgl {
   updateDeviceMotion( e ) {
     this.mouse.x = e.gamma * 5;
     this.mouse.y = e.beta * 2;
+    if ( this.mouse.x < -230 ) { this.mouse.x = -230; }
+    if ( this.mouse.x > 230 ) { this.mouse.x = 230; }
   }
 
   render() {
@@ -69,8 +66,8 @@ export default class Webgl {
 
     this.project.update();
 
-    this.camera.position.x += ( this.mouse.x - this.camera.position.x / 2.0 ) * 0.05;
-    this.camera.position.y += ( -this.mouse.y - this.camera.position.y / 2.0 ) * 0.05;
+    this.camera.position.x += ( this.mouse.x - this.camera.position.x / 2.0 ) * 0.06;
+    this.camera.position.y += ( -this.mouse.y - this.camera.position.y / 2.0 ) * 0.06;
     this.camera.lookAt( this.scene.position );
   }
 }
