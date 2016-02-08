@@ -20,16 +20,16 @@
 		},
 		{
 			"name": "Star Christmas",
-			"description": "A little game based on the Star Wars universe in WebGL.",
+			"description": "A little game based on the Star Wars universe in WebGL. Maded with Robin Delaporte.",
     	"image": "experiment-star-christmas.png",
 			"type": "experiment",
 			"intervention": ["ThreeJS", "GLSL", "ES6"],
 			"target": "Go to the website",
-			"url": "http://www.mathis-biabiany.fr/webgl/starwars/"
+			"url": "http://www.mathis-biabiany.fr/lab/starwars/"
 		},
 		{
 			"name": "Bienvenue Dans Mon Hybride",
-			"description": "A web application for Toyota which let their users to share about the hybrid cars",
+			"description": "A web application for Toyota which let their users to share about the hybrid cars.",
 			"image": "project-bienvenue-dans-mon-hybride.png",
 			"type": "project",
 			"intervention": ["AngularJS", "Process"],
@@ -52,7 +52,16 @@
 			"type": "experiment",
 			"intervention": ["ThreeJS", "ES6", "Web Audio API"],
 			"target": "Go to the website",
-			"url": "http://www.mathis-biabiany.fr/webgl/soundgraph/"
+			"url": "http://www.mathis-biabiany.fr/lab/soundgraph/"
+		},
+		{
+			"name": "Dragon Ball Ki",
+			"description": "One of my first WebGL experiment. I couple the best manga in the world (and the surrounding planets) with Three.js.",
+			"image": "experiment-dbz.png",
+			"type": "experiment",
+			"intervention": ["ThreeJS"],
+			"target": "Go to the website",
+			"url": "http://www.mathis-biabiany.fr/lab/db-ki/"
 		},
 		{
 			"name": "Math&Malice",

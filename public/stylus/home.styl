@@ -108,7 +108,7 @@ nav
   padding-left 15px
   position absolute
   top 65%
-  width 280px
+  width 235px
   transition opacity 0.5s ease
   &.active
     h2, p, span, a
@@ -220,23 +220,41 @@ nav
 
 @media screen and (max-width: 640px)
   h1
+    bottom 30px
     font-size 1rem
     left 2%
+    margin 0
   .links
+    bottom 10px
     font-size 0.9rem
     left 2%
+    margin 0
   nav
     h2
       font-size 1rem
       padding-bottom 10px !important
     li
       font-size 0.8rem
-      margin-bottom 10px !important
+      margin-bottom 15px !important
   .description-container
-    left 50%
-    top 55%
-    width 44%
+    left 48%
+    padding 0 5px 0 15px
+    top 58%
+    width 42%
+    &.active:before
+      background rgba(255, 255, 255, 0.7)
+      width 100%
     h2
+      color #000
       font-size 1rem
+      margin-top 8px
     p, span, a
+      color #000
       font-size 0.8rem
+    a
+      color #fff
+      background #000
+    a:before
+      background #fff
+    a:before
+      background #fff
