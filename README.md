@@ -1,7 +1,9 @@
-threejs-starter-kit
+My portfolio
 ===================
 
-It uses Three.js and Greensock as depencies.
+You can find all sources of my folio in this repo' =)
+
+I use mainly Three.js and GLSL to make a point cloud. If you want to see the render : [www.mathis-biabiany.fr](www.mathis-biabiany.fr)
 
 After cloning install all dependencies :
 ```bash
@@ -10,7 +12,7 @@ npm i
 
 ## Task
 ### Start development
-It starts a developement server at [localhost:9966](http://localhost:9966) with live reload.
+It starts a developement server with live reload.
 ```bash
 npm start
 ```
