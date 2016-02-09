@@ -87,25 +87,23 @@ export default class Home {
       if ( this.datas.projects[i].type === 'project' ) {
         const li = document.createElement( 'li' );
         const br = document.createElement( 'br' );
+
         li.setAttribute( 'data-index', i );
         li.textContent = this.datas.projects[i].name;
-        // for ( let j = 0; j < this.datas.projects[i].intervention.length; j++ ) {
-        //   const span = document.createElement( 'span' );
-        //   span.textContent = this.datas.projects[i].intervention[j];
-        //   li.appendChild( span );
-        // }
+
+        if ( i === 0 ) { li.className = 'width'; }
+
         this.projectListElement.appendChild( li );
         this.projectListElement.appendChild( br );
       } else {
         const li = document.createElement( 'li' );
         const br = document.createElement( 'br' );
+
         li.setAttribute( 'data-index', i );
         li.textContent = this.datas.projects[i].name;
-        // for ( let j = 0; j < this.datas.projects[i].intervention.length; j++ ) {
-        //   const span = document.createElement( 'span' );
-        //   span.textContent = this.datas.projects[i].intervention[j];
-        //   li.appendChild( span );
-        // }
+
+        if ( i === 0 ) { li.className = 'width'; }
+
         this.experimentListElement.appendChild( li );
         this.experimentListElement.appendChild( br );
       }
