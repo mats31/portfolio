@@ -2,7 +2,7 @@
 	"projects": [
 		{
 			"name": "Nice To Meet You",
-			"description": "Event application maded for the cosmetic brand Sisley at Gobelins. The purpose is to try to seduce you...",
+			"description": "Event application made for the cosmetic brand Sisley at Gobelins. The purpose is to try to seduce you...",
     	"image": "project-ntmy.png",
 			"type": "project",
 			"intervention": ["Swift", "Project creator"],
@@ -20,7 +20,7 @@
 		},
 		{
 			"name": "Star Christmas",
-			"description": "A little game based on the Star Wars universe in WebGL. Maded with Robin Delaporte.",
+			"description": "A little game based on the Star Wars universe in WebGL. Made with Robin Delaporte.",
     	"image": "experiment-star-christmas.png",
 			"type": "experiment",
 			"intervention": ["ThreeJS", "GLSL", "ES6"],
