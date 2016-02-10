@@ -23,27 +23,6 @@ export default class Project extends THREE.Object3D {
     });
   }
 
-  loadJson() {
-    return new Promise( ( resolve, reject ) => {
-      const req = new XMLHttpRequest();
-      req.open( 'GET', './datas.json' );
-
-      req.onload = () => {
-        if ( req.status === 200 ) {
-          resolve( req.response );
-        } else {
-          reject( Error( req.statusText ) );
-        }
-      };
-
-      req.onerror = () => {
-        reject( Error( 'Erreur réseau' ) );
-      };
-
-      req.send();
-    });
-  }
-
   loadImage( image ) {
     return new Promise( ( resolve, reject ) => {
       this.currentImg = new Image();
