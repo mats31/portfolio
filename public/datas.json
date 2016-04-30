@@ -90,5 +90,15 @@
 			"target": "See the video",
 			"url": "https://vimeo.com/154376698"
 		}
+	],
+	"friends": [
+		{
+			"name": "Patrick",
+			"description": "Patrick Heng's Portfolio",
+			"fullname": "Patrick Heng",
+			"image": "patrick.jpg",
+			"target": "Go to his folio",
+			"url": "http://hengpatrick.fr/"
+		}
 	]
 }

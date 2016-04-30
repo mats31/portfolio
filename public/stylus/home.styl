@@ -15,14 +15,42 @@ h1
   font-family 'Lato', sans-serif
   font-size 1rem
   font-weight 400
+  height 20px
   left 1%
+  margin 0
   position absolute
+  width 100%
   a
     color white
+    display inline-block
     opacity 0.7
     text-decoration none
     &:hover
       opacity 1
+  span.friends-list
+    color #000000
+    display inline-block
+    margin-left 0.2%
+    padding 0
+    position relative
+    top 6px
+    overflow hidden
+    span
+      background rgba(255, 255, 255, 1)
+      display inline-block
+      height 1.4rem
+      overflow hidden
+      padding 0
+      transition all 0.5s ease-out
+      width 0px
+      a
+        color #000000
+        margin-right 5px
+        &:last-child
+          margin-right 0
+    &.active span
+      padding 0 5%
+      width 100%
 nav
   color white
   font-family 'Lato', sans-serif
@@ -204,7 +232,7 @@ nav
   transform translate3d(-50%, -50%, 0)
   width 80px
   &::before
-    animation loader 0.5s infinite
+    animation loader 1.5s infinite
     background white
     content ''
     height 100%
@@ -219,6 +247,8 @@ nav
   100% { left:-110% }
 
 @media screen and (max-width: 640px)
+  .friends, .friends-list, .friends-symbol
+    display none !important
   h1
     bottom 30px
     font-size 1rem

@@ -7,6 +7,7 @@ export default class Project extends THREE.Object3D {
     super();
 
     this.pathImg = 'img/';
+    this.pathFriend = 'img/friends/';
     this.canvas = document.createElement( 'canvas' );
     this.context = this.canvas.getContext( '2d' );
     this.step = 0;
@@ -18,15 +19,15 @@ export default class Project extends THREE.Object3D {
     this.datas = datas;
     this.radius = 800;
 
-    this.loadImage( this.datas.projects[this.step].image ).then( ( loadState ) => {
+    this.loadImage( this.datas.projects[this.step].image, true ).then( ( loadState ) => {
       this.createPoints();
     });
   }
 
-  loadImage( image ) {
+  loadImage( image, isProject ) {
     return new Promise( ( resolve, reject ) => {
       this.currentImg = new Image();
-      this.currentImg.src = this.pathImg + image;
+      this.currentImg.src = isProject ? this.pathImg + image : this.pathFriend + image;
 
       this.currentImg.onload = () => {
         if ( this.currentImg.complete ) {
@@ -128,9 +129,23 @@ export default class Project extends THREE.Object3D {
 
   changeProject( i ) {
     const image = this.datas.projects[i].image;
-    this.loadImage( image ).then( ( loadState ) => {
+    this.loadImage( image, true ).then( ( loadState ) => {
       if ( this.uniforms.secondMap.value.sourceFile !== this.pathImg + image ) {
         const newTexture = THREE.ImageUtils.loadTexture( this.pathImg + image );
+        this.uniforms.easingColor.value = 0.1;
+        this.uniforms.easingFirstColor.value = 1;
+        this.uniforms.firstMap.value = this.uniforms.secondMap.value;
+        newTexture.minFilter = THREE.LinearFilter;
+        this.uniforms.secondMap.value = newTexture;
+      }
+    });
+  }
+
+  displayFriend( i ) {
+    const image = this.datas.friends[i].image;
+    this.loadImage( image, false ).then( ( loadState ) => {
+      if ( this.uniforms.secondMap.value.sourceFile !== this.pathFriend + image ) {
+        const newTexture = THREE.ImageUtils.loadTexture( this.pathFriend + image );
         this.uniforms.easingColor.value = 0.1;
         this.uniforms.easingFirstColor.value = 1;
         this.uniforms.firstMap.value = this.uniforms.secondMap.value;

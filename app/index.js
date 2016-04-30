@@ -22,6 +22,19 @@ function onItemEnter( e ) {
   webgl.updateMouse( e );
 }
 
+function onFriendEnter( e ) {
+  home.setDescription( e.target.attributes[0].value, false );
+  webgl.project.displayFriend( e.target.attributes[0].value );
+}
+
+function onFriendContainerEnter( e ) {
+  home.animFriend( true );
+}
+
+function onFriendContainerLeave( e ) {
+  home.animFriend( false );
+}
+
 function onDeviceMotion( e ) {
   webgl.updateDeviceMotion( e );
 }
@@ -31,10 +44,10 @@ function animate() {
   webgl.render();
 }
 
-function loadJson() {
+function loadJson( url ) {
   return new Promise( ( resolve, reject ) => {
     const req = new XMLHttpRequest();
-    req.open( 'GET', './datas.json' );
+    req.open( 'GET', url );
 
     req.onload = () => {
       if ( req.status === 200 ) {
@@ -52,31 +65,62 @@ function loadJson() {
   });
 }
 
+function loadAllPictures( datas ) {
+  const imgs = [];
+  let loads = 1;
+  for ( let i = 0; i < datas.projects.length; i++ ) {
+    imgs.push( 'img/' + datas.projects[i].image );
+  }
+  for ( let i = 0; i < datas.friends.length; i++ ) {
+    imgs.push( 'img/friends/' + datas.friends[i].image );
+  }
+
+  return new Promise( ( resolve, reject ) => {
+    for ( let i = 0; i < imgs.length; i++ ) {
+      const img = new Image();
+      img.src = imgs[i];
+      img.onload = () => {
+        loads++;
+        if ( loads === imgs.length ) {
+          resolve();
+        }
+      };
+    }
+  });
+}
+
 // Load datas
-loadJson().then( ( result ) => {
+loadJson( './datas.json' ).then( ( result ) => {
   // Webgl settings
   const datas = JSON.parse( result );
-  webgl = new Webgl( window.innerWidth, window.innerHeight, datas );
-  document.getElementById( 'wrapper' ).appendChild( webgl.renderer.domElement );
+  loadAllPictures( datas ).then( () => {
+    webgl = new Webgl( window.innerWidth, window.innerHeight, datas );
+    document.getElementById( 'wrapper' ).appendChild( webgl.renderer.domElement );
 
-  // Set interface
-  home = new Home( datas );
+    // Set interface
+    home = new Home( datas );
 
-  // Toggle mousemove projects / experiments
-  document.getElementById( 'wrapper' ).addEventListener( 'mousemove', onCanvasMouseMove );
+    // Toggle mousemove projects / experiments
+    document.getElementById( 'wrapper' ).addEventListener( 'mousemove', onCanvasMouseMove );
 
-  // Toggle animation texture event
-  const items = document.querySelectorAll( 'nav li' );
-  for ( let i = 0; i < items.length; i++ ) {
-    items[i].addEventListener( 'mouseenter', onItemEnter );
-  }
+    // Toggle friends pages
+    document.querySelector( '.friends' ).addEventListener( 'mouseenter', onFriendContainerEnter );
+    document.querySelector( '.friends-list a' ).addEventListener( 'mouseenter', onFriendEnter );
+    document.querySelector( '.links' ).addEventListener( 'mouseleave', onFriendContainerLeave );
 
-  if ( window.DeviceMotionEvent ) {
-    window.addEventListener( 'deviceorientation', onDeviceMotion, false );
-  }
+    // Toggle animation texture event
+    const items = document.querySelectorAll( 'nav li' );
+    for ( let i = 0; i < items.length; i++ ) {
+      items[i].addEventListener( 'mouseenter', onItemEnter );
+    }
 
-  // Let's play !
-  animate();
+    if ( window.DeviceMotionEvent ) {
+      window.addEventListener( 'deviceorientation', onDeviceMotion, false );
+    }
+
+    // Let's play !
+    animate();
+  })
 });
 
 // Handle resize
