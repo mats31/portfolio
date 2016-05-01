@@ -30,6 +30,8 @@ export default class Home {
 
   setDescription( index, isProject ) {
     const descriptionElement = document.querySelector( '.description-container' );
+    const lis = document.querySelectorAll( '.project-container li' );
+
     descriptionElement.innerHTML = '';
 
     /** Title **/
@@ -54,6 +56,11 @@ export default class Home {
         technoContainer.appendChild( span );
       }
       descriptionElement.appendChild( technoContainer );
+    } else {
+      // Remove focus to item project
+      for ( let i = 0; i < lis.length; i++ ) {
+        lis[i].className = '';
+      }
     }
 
     /** Link **/
@@ -123,7 +130,7 @@ export default class Home {
 
     for ( let i = 0; i < this.datas.friends.length; i++ ) {
       const a = document.createElement( 'a' );
-      const symbol = document.createTextNode( '•' );
+      const symbol = document.createTextNode( ' • ' );
 
       a.setAttribute( 'data-index', i );
       a.setAttribute( 'href', 'javascript:void(0)' );

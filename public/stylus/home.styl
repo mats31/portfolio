@@ -45,9 +45,6 @@ h1
       width 0px
       a
         color #000000
-        margin-right 5px
-        &:last-child
-          margin-right 0
     &.active span
       padding 0 5%
       width 100%
@@ -220,27 +217,70 @@ nav
     height 100%
 .experiment-description
   right 20px
+// .loader
+//   display none
+// .loader.active
+//   display block
+//   height 5px
+//   left 50%
+//   overflow hidden
+//   position absolute
+//   top 50%
+//   transform translate3d(-50%, -50%, 0)
+//   width 80px
+//   &::before
+//     animation loader 1.5s infinite
+//     background white
+//     content ''
+//     height 100%
+//     left -110%
+//     position absolute
+//     top 0
+//     width 100%
 .loader
-  display none
-.loader.active
+  background #000000
   display block
-  height 5px
-  left 50%
+  height 100%
+  left 0
   overflow hidden
   position absolute
-  top 50%
-  transform translate3d(-50%, -50%, 0)
-  width 80px
-  &::before
-    animation loader 1.5s infinite
-    background white
-    content ''
+  top 0
+  width 100%
+  z-index 2
+  transition width 0.25s ease-out, z-index 2s ease-out
+  .container
     height 100%
-    left -110%
-    position absolute
-    top 0
-    width 100%
-
+    position relative
+    width 0%
+    &::before
+      background #000000
+      border-bottom 1px solid white
+      content ''
+      height 50%
+      left 0
+      position absolute
+      top 0
+      width 100%
+      transform translateY(0)
+    &::after
+      background #000000
+      border-top 1px solid white
+      content ''
+      height 50%
+      left 0
+      position absolute
+      bottom 0
+      width 100%
+      transform translateY(0)
+.loader.active
+  background rgba(0, 0, 0, 0)
+  z-index -1
+  .container::before
+    transition all 1s ease-out
+    transform translateY(-110%)
+  .container::after
+    transition all 1s ease-out
+    transform translateY(110%)
 @keyframes loader
   0% { left: -110% }
   50% { left: 110% }

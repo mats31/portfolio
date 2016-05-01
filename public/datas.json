@@ -38,7 +38,7 @@
 		},
 		{
 			"name": "Equalizer Galaxy",
-			"description": "A WebGL project realized at Gobelins. The render reacts to the audio by using the HTML Web Audio API.",
+			"description": "A WebGL project realized at Gobelins. The render reacts to the audio by using the HTML Web Audio API. Our projects were rewarded by FWA & Awwwards",
     	"image": "experiment-equalizer-galaxy.png",
 			"type": "experiment",
 			"intervention": ["ThreeJS", "GLSL", "ES6", "Web Audio API"],
@@ -93,8 +93,16 @@
 	],
 	"friends": [
 		{
+			"name": "Jérémie",
+			"description": "Jérémie Boulay's page",
+			"fullname": "Jérémie Boulay",
+			"image": "jeremie.jpg",
+			"target": "Go to his page",
+			"url": "http://jeremieboulay.fr/portfolio/"
+		},
+		{
 			"name": "Patrick",
-			"description": "Patrick Heng's Portfolio",
+			"description": "Patrick Heng's portfolio",
 			"fullname": "Patrick Heng",
 			"image": "patrick.jpg",
 			"target": "Go to his folio",

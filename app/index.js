@@ -67,10 +67,14 @@ function loadJson( url ) {
 
 function loadAllPictures( datas ) {
   const imgs = [];
+  const loader = document.querySelector( '.loader .container' );
   let loads = 1;
+  loader.style.width = loads / ( datas.projects.length + datas.friends.length ) * 100 + '%';
+
   for ( let i = 0; i < datas.projects.length; i++ ) {
     imgs.push( 'img/' + datas.projects[i].image );
   }
+
   for ( let i = 0; i < datas.friends.length; i++ ) {
     imgs.push( 'img/friends/' + datas.friends[i].image );
   }
@@ -81,6 +85,7 @@ function loadAllPictures( datas ) {
       img.src = imgs[i];
       img.onload = () => {
         loads++;
+        loader.style.width = loads / ( datas.projects.length + datas.friends.length ) * 100 + '%';
         if ( loads === imgs.length ) {
           resolve();
         }
@@ -89,11 +94,18 @@ function loadAllPictures( datas ) {
   });
 }
 
+// Handle resize
+window.addEventListener( 'resize', resizeHandler );
+
+/* *** insert our stylus css into our app *** */
+insertCss( require( '../public/stylus/app.styl' ) );
+
 // Load datas
 loadJson( './datas.json' ).then( ( result ) => {
   // Webgl settings
   const datas = JSON.parse( result );
   loadAllPictures( datas ).then( () => {
+    // Set Webgl
     webgl = new Webgl( window.innerWidth, window.innerHeight, datas );
     document.getElementById( 'wrapper' ).appendChild( webgl.renderer.domElement );
 
@@ -105,7 +117,10 @@ loadJson( './datas.json' ).then( ( result ) => {
 
     // Toggle friends pages
     document.querySelector( '.friends' ).addEventListener( 'mouseenter', onFriendContainerEnter );
-    document.querySelector( '.friends-list a' ).addEventListener( 'mouseenter', onFriendEnter );
+    const friends = document.querySelectorAll( '.friends-list a' );
+    for ( let i = 0; i < friends.length; i++ ) {
+      friends[i].addEventListener( 'mouseenter', onFriendEnter );
+    }
     document.querySelector( '.links' ).addEventListener( 'mouseleave', onFriendContainerLeave );
 
     // Toggle animation texture event
@@ -122,9 +137,3 @@ loadJson( './datas.json' ).then( ( result ) => {
     animate();
   })
 });
-
-// Handle resize
-window.addEventListener( 'resize', resizeHandler );
-
-/* *** insert our stylus css into our app *** */
-insertCss(require('../public/stylus/app.styl'));

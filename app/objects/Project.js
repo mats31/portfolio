@@ -88,7 +88,7 @@ export default class Project extends THREE.Object3D {
     this.particles.addAttribute( 'velocity', new THREE.BufferAttribute( velocities, 1 ) );
     this.particles.addAttribute( 'customTime', new THREE.BufferAttribute( customTimes, 1 ) );
 
-    this.particleTexture = THREE.ImageUtils.loadTexture( './textures/particle.png' );
+    this.particleTexture = THREE.ImageUtils.loadTexture( './img/particle.png' );
     this.particleTexture.minFilter = THREE.LinearFilter;
     this.imageTexture = THREE.ImageUtils.loadTexture( this.currentImg.src );
     this.imageTexture.minFilter = THREE.LinearFilter;
@@ -160,7 +160,7 @@ export default class Project extends THREE.Object3D {
       this.uniforms.time.value = this.clock.getElapsedTime() * 0.5;
 
       if ( this.uniforms.opacityValue.value < 1 ) {
-        document.querySelector( '.loader' ).className = 'loader';
+        document.querySelector( '.loader' ).className = 'loader active';
         this.uniforms.opacityValue.value += 0.01;
       }
       if ( this.uniforms.easingColor.value <= 1 ) {
