@@ -97,16 +97,32 @@
 			"description": "Jérémie Boulay's page",
 			"fullname": "Jérémie Boulay",
 			"image": "jeremie.jpg",
-			"target": "Go to his page",
+			"target": "See his page",
 			"url": "http://jeremieboulay.fr/portfolio/"
+		},
+		{
+			"name": "Madjid",
+			"description": "Madjid Taha's page",
+			"fullname": "Madjid Taha",
+			"image": "madjid.jpg",
+			"target": "See his page",
+			"url": "http://madjidtaha.fr/"
 		},
 		{
 			"name": "Patrick",
 			"description": "Patrick Heng's portfolio",
 			"fullname": "Patrick Heng",
 			"image": "patrick.jpg",
-			"target": "Go to his folio",
+			"target": "See his folio",
 			"url": "http://hengpatrick.fr/"
+		},
+		{
+			"name": "Robin",
+			"description": "Robin Delaporte's page",
+			"fullname": "Robin Delaporte",
+			"image": "robin.jpg",
+			"target": "See his page",
+			"url": "http://robindelaporte.fr"
 		}
 	]
 }
