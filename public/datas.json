@@ -123,6 +123,14 @@
 			"image": "robin.jpg",
 			"target": "See his page",
 			"url": "http://robindelaporte.fr"
+		},
+		{
+			"name": "Jojo",
+			"description": "Jordan Machado's page",
+			"fullname": "Jordan Machado",
+			"image": "jojo.jpg",
+			"target": "See his page",
+			"url": "http://jojo.ninja"
 		}
 	]
 }
