@@ -1,6 +1,15 @@
 {
 	"projects": [
 		{
+			"name": "Hymn",
+			"description": "Hymn is a web application thought for Alzheimer's patients and their family.",
+    	"image": "project-hymn.png",
+			"type": "project",
+			"intervention": ["GLSL", "ThreeJS", "React", "Redux", "Project creator"],
+			"target": "Go to the demo",
+			"url": "http://www.hymn-app.com/demo"
+		},
+		{
 			"name": "Nice To Meet You",
 			"description": "Event application made for the cosmetic brand Sisley at Gobelins. The purpose is to try to seduce you...",
     	"image": "project-ntmy.png",
